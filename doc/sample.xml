@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resultSet>
+	<settings>
+		<user_loggedin>on</user_loggedin>
+		<lottery>on</lottery>
+		<voting_type>voting</voting_type>
+		<results>no</results>
+		<ranges>
+			<item>
+				<id>13208488234</id>
+				<position>1</position>
+				<points>0-10</points>
+				<text>geht so</text>
+			</item>
+			<item>
+				<id>13208488372</id>
+				<position>2</position>
+				<points>11-20</points>
+				<text>super</text>
+			</item>
+		</ranges>
+		<user_attributes>
+			<item>8</item>
+			<item>9</item>
+		</user_attributes>
+	</settings>
+	<questions>
+		<item>
+			<id>1320848851</id>
+			<answer_type>multiple</answer_type>
+			<layout>horizontal</layout>
+			<position>1</position>
+			<text>Wer bist du?</text>
+			<points>5</points>
+			<object_relation>64</object_relation>
+			<answers>
+				<item>
+					<parentID>1320848851</parentID>
+					<id>13208488706</id>
+					<position>1</position>
+					<text>Du</text>
+					<points>0</points>
+					<object_relation>64</object_relation>
+				</item>
+				<item>
+					<parentID>1320848851</parentID>
+					<id>13208488983</id>
+					<position>2</position>
+					<text>Wir</text>
+					<points>0</points>
+					<object_relation>64</object_relation>
+				</item>
+				<item>
+					<parentID>1320848851</parentID>
+					<id>13208488836</id>
+					<correct>on</correct>
+					<position>3</position>
+					<text>Ich</text>
+					<points>5</points>
+					<object_relation>64</object_relation>
+				</item>
+			</answers>
+		</item>
+		<item>
+			<id>1320848913</id>
+			<answer_type>non_multiple</answer_type>
+			<layout>horizontal</layout>
+			<position>2</position>
+			<text />
+			<points />
+			<object_relation>64</object_relation>
+		</item>
+		<item>
+			<id>1320848915</id>
+			<answer_type>non_multiple</answer_type>
+			<layout>horizontal</layout>
+			<position>3</position>
+			<text />
+			<points />
+			<object_relation>64</object_relation>
+		</item>
+	</questions>
+</resultSet>

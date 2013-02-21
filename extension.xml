@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<software>
+    <metadata>
+        <name>xrow questionnaire</name>
+        <version>1.0.0</version>
+        <copyright>Copyright (C) 1999-2011 xrow GmbH</copyright>
+        <license>eZ Proprietary Use License v1.0</license>
+        <info_url>http://projects.ez.no/xrowquestionnaire</info_url>
+    </metadata>
+
+    <dependencies>
+        <requires>
+            <extension name="ezjscore" />
+        </requires>
+        <extends>
+            <extension name="ezwebin" />
+        </extends>
+    </dependencies>
+</software>

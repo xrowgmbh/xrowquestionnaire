@@ -1,0 +1,1 @@
+<p>Umfrage oder Quiz geschlossen.</p>

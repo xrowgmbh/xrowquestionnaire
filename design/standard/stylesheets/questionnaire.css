@@ -1,0 +1,33 @@
+/*##############################################################*/
+/*Formatierungen Backend*/
+/*##############################################################*/
+#pointsRange ul li {
+    margin-bottom: 15px;
+    padding: 15px;
+    list-style-type: none;
+    border: 1px dotted gray;
+}
+
+/*---TAB VIEW----*/
+#tabelement {
+    margin: 15px;
+    min-height: 350px;
+    border: 1px dotted gray;
+}
+
+/*---ANSWER VIEW----*/
+.answerelement {
+    margin-bottom: 15px;
+    padding: 15px;
+}
+
+/*---FORM ELEMENTS---*/
+label {
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+#tabelement select,#tabelement input {
+    min-width: 100px;
+}

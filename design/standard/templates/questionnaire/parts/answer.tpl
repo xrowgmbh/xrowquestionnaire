@@ -1,0 +1,12 @@
+    <li id="id_{$parentID}_{$answer.position}" class="ui-state-default answerelement">
+        <input class="parentID" type="hidden" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][questions][{$parentID}][answers][{$answer.position}][parentID]" value="{$answer.parentID}" />
+        <input type="hidden" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][questions][{$parentID}][answers][{$answer.position}][id]" value="{$answer.id}" />
+        <input type="hidden" class="answerPosition" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][questions][{$parentID}][answers][{$answer.position}][position]" value="{$answer.position}" />
+        Richtig: <input type="checkbox" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][questions][{$parentID}][answers][{$answer.position}][correct]" {if is_set($answer.correct)}checked="true"{/if} /><br />
+        Antwort:<br /> <textarea name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][questions][{$parentID}][answers][{$answer.position}][text]" rows="2" cols="20">{$answer.text}</textarea><br />
+        Punkte:<br /> <input type="text" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][questions][{$parentID}][answers][{$answer.position}][points]" value="{$answer.points}" title="{'Diese Punktzahl wird vergeben, sobald diese Antwort richtig beantwortet wurde.'|i18n('xrowquestionnaire/datatype/edit')}" /><br />
+        Bildverknüpfung:<br /> <input type="text" id="xrowquestionnaire_{$attribute.contentobject_id}_{$attribute.version}_images_{$attribute.id}_{$parentID}_{$answer.position}_relation" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][questions][{$parentID}][answers][{$answer.position}][object_relation]" value="{$answer.object_relation}" />
+        <button class="button uploadImage" type="button" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][questions][{$parentID}][answers][{$answer.position}][image]" id="xrowquestionnaire_{$attribute.contentobject_id}_{$attribute.version}_images_{$attribute.id}_{$parentID}_{$answer.position}">Bild hinzufügen</button><br />
+        <input type="hidden" id="xrowquestionnaire_{$attribute.contentobject_id}_{$attribute.version}_images_{$attribute.id}_{$parentID}_{$answer.position}_url" value={concat( 'questionnaire/upload/', $attribute.contentobject_id, '/', $attribute.version, '/images' )|ezurl()} />
+        <button class="button" type="button" onclick="removeAnswer({$parentID},{$answer.position});">Antwort entfernen</button>
+    </li>
