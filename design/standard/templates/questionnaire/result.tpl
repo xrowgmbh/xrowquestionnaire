@@ -22,7 +22,7 @@
             {/if}
 	    	<ul style="width: 100%;">
 	    	{foreach $question.answers as $answer}
-	            <li style="width: {$answer.percent}%;background-color: yellow;">{$answer.text} ({$answer.total})</li>
+	            <li style="background: url({"1x1_result.png"|ezimage(no)});background-size: {$answer.percent}%;background-repeat:no-repeat;">{$answer.text} ({$answer.total})</li>
 	        {/foreach}
 	    	</ul>
 	    {/foreach}
@@ -44,7 +44,7 @@
 	    	<strong>{$question.text}</strong>
 	    	<ul style="width: 100%;">
 	    	{foreach $question.answers as $answer}
-	            <li style="width: {$answer.percent}%;background-color: yellow;">{$answer.text} ({$answer.total})</li>
+	            <li style="background: url({"1x1_result.png"|ezimage(no)}); background-size:{$answer.percent}%;background-repeat:no-repeat;">{$answer.text} ({$answer.total})</li>
 	        {/foreach}
 	    	</ul>
 	    {/foreach}
