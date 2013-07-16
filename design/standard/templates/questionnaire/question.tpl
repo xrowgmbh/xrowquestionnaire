@@ -41,8 +41,6 @@
                     <input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'submit' );" id="question_submit{$question.id}" class="question_submit" type="button" name="submit_vote{$question.id}" value="{'Abstimmen'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'Geben Sie Ihre Stimme ab!'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
                     {if $attribute.content.settings.results|ne('no')}
                     	<input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'results' );" id="show_result_button{$attribute.id}" type="button" class="show_result_button" name="show_result" value="{'Ergebnis anzeigen'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'Ergebnisse anzeigen'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
-                    {else}
-                    	<input type="button" class="show_result_button" disabled="disabled" value="{'Ergebnis anzeigen'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'Ergebnisanzeige deaktiviert'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
                     {/if}
                 </div>
         <input type="hidden" name="question_id" value="{$question.id}" />

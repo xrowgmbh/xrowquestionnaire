@@ -73,5 +73,3 @@ class xrowQuestionnaireFunctions
         return true;
     }
 }
-
-?>

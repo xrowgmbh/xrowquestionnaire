@@ -1,5 +1,7 @@
 <?php
-
+/*
+ * http://bugs.jquery.com/ticket/13223 Trim needs to be used around html code, fixed in Jquery 1.10
+ */
 class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
 {
 
@@ -502,7 +504,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
         $content['avgTotal'] = $content['total']/count($content['questions']);
         $tpl->setVariable( 'results', $content );
 
-        $result['template'] = $tpl->fetch( 'design:questionnaire/result.tpl' );
+        $result['template'] = trim( $tpl->fetch( 'design:questionnaire/result.tpl' ) );
         return $result;
     }
 
@@ -518,7 +520,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
         $tpl->setVariable( 'attrID', $http->postVariable( 'attr' ) );
         $tpl->setVariable( 'attribute_base', $http->postVariable( 'base' ) );
         
-        $result['template'] = $tpl->fetch( 'design:questionnaire/range.tpl' );
+        $result['template'] = trim( $tpl->fetch( 'design:questionnaire/range.tpl' ) );
         
         return $result;
     }
@@ -534,7 +536,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
         $tpl->setVariable( 'contentobject_id', $http->postVariable( 'contentobject_id' ) );
         $tpl->setVariable( 'version', $http->postVariable( 'version' ) );
         
-        $result['template'] = $tpl->fetch( 'design:questionnaire/tab.tpl' );
+        $result['template'] = trim( $tpl->fetch( 'design:questionnaire/tab.tpl' ) );
         
         return $result;
     }
@@ -550,7 +552,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
         $tpl->setVariable( 'contentobject_id', $http->postVariable( 'contentobject_id' ) );
         $tpl->setVariable( 'version', $http->postVariable( 'version' ) );
         
-        $result['template'] = $tpl->fetch( 'design:questionnaire/answer.tpl' );
+        $result['template'] = trim( $tpl->fetch( 'design:questionnaire/answer.tpl' ) );
         
         return $result;
     }
@@ -562,6 +564,10 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
         {
             $result['settings'] = $settings;
             return $result;
+        }
+        else
+        {
+            return array();
         }
         return false;
     

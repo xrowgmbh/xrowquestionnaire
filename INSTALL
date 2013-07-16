@@ -1,15 +1,20 @@
 Installation guide xrowquestionnaire
 
 1) download the extension and put it into the extension folder
-2) activate the extension in your site.ini
-3) add the questionnaire datatype
-4) run autoloads
-5) add the required tables to your database by implementing the schema.sql from the sql folder
-6) override the xrowquestionnaire.ini and put in your proper recaptcha key!
-7) clear all cache
+2) Activate the extension in your site.ini
+3) Add the required tables to your database by implementing the schema.sql from the sql folder
+4) Run autoloads
+5) Install the content class package
+6) Override the xrowquestionnaire.ini and put in your proper recaptcha key!
+7) The ezjscore function call for "xrowquestionnaire_page" needs to be enabled for all users 
+8) Clear cache
 
-=> done.
-
-after adding the questionnaire datatype to any of your content classes you are able to use it. 
-don't forget to copy the template override settings to any siteaccess you want to use it in.
+After adding the questionnaire datatype to any of your content classes you are able to use it. 
+Don't forget to copy the template override settings to any siteaccess you want to use it in.
 There must be no restrictions for the module ezjscore/call. 
+
+Trouble shooting:
+
+Not a valid ezjscServerRouter argument
+
+ You forgot to setup permissions. See 7.

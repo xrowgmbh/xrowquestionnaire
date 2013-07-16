@@ -6,5 +6,5 @@
 {/foreach}
 </ul>
 
-<p>Bitte Profil <a href={'user/edit'|ezurl()}>ändern</a> um Fortzufahren.</p>
+<p>Bitte Profil <a href={'user/edit'|ezurl()}>ändern</a>, um fortzufahren.</p>
 {/if}

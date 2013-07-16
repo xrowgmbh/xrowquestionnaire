@@ -162,10 +162,10 @@ jQuery(document)
 
                         if (jQuery('button.uploadImage')) {
                             jQuery('button.uploadImage')
-                                    .live(
+                                    .on(
                                             'click',
                                             function(e) {
-                                                var idArray = jQuery(this)
+                                                   var idArray = jQuery(this)
                                                         .attr('id').split('_'), url = jQuery(
                                                         'input#'
                                                                 + jQuery(this)
@@ -228,7 +228,7 @@ jQuery(document)
                                                 jQuery(
                                                         'a#mce_' + idArray[3]
                                                                 + '_close')
-                                                        .live(
+                                                        .on(
                                                                 'click',
                                                                 function(e) {
                                                                     jQuery(
@@ -239,6 +239,7 @@ jQuery(document)
                                                                             '#mceModalBlocker')
                                                                             .remove();
                                                                 });
+
                                             });
                         }
 

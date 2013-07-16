@@ -81,7 +81,7 @@ class xrowQuestionnaireType extends eZDataType
                 for ( $i = 1; $i <= $count; $i ++ )
                 {
                     $answer = trim( $question['answers'][$i]['text'] );
-                    if ( empty( $answer ) )
+                    if ( $answer == '' )
                     {
                         $contentObjectAttribute->setValidationError( ezpI18n::tr( 'kernel/classes/datatypes', 'Each Answer needs a Text!' ) );
                         return eZInputValidator::STATE_INVALID;
@@ -224,4 +224,3 @@ class xrowQuestionnaireType extends eZDataType
 }
 
 eZDataType::register( xrowQuestionnaireType::DATA_TYPE_STRING, 'xrowQuestionnaireType' );
-?>

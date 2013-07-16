@@ -8,9 +8,7 @@
 {/if}
 
 {if $attribute.content.settings.results|ne('no')}
-    {*<input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'results' );" id="show_result_button{$attribute.id}" type="button" class="show_result_button" name="show_result" value="{'Ergebnis anzeigen'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'Ergebnisse anzeigen'|i18n( 'xrowquestionnaire/datatype/edit' )}" />*}
-{else}
-    {*<input type="button" class="show_result_button" disabled="disabled" value="{'Ergebnis anzeigen'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'Ergebnisanzeige deaktiviert'|i18n( 'xrowquestionnaire/datatype/edit' )}" />*}
+    <input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'results' );" id="show_result_button{$attribute.id}" type="button" class="show_result_button" name="show_result" value="{'Ergebnis anzeigen'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'Ergebnisse anzeigen'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
 {/if}
 		<input type="hidden" name="attribute_id" value="{$attribute.id}" />
 		<input type="hidden" name="contentobject_id" value="{$attribute.contentobject_id}" />
