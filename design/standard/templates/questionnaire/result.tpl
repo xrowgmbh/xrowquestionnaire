@@ -32,9 +32,10 @@
            {/if}
         {/foreach}
         {if $points|eq(true)}
-            {'Gesamtpunktzahl'|i18n( 'xrowquestionnaire/datatype/view' )}: {$totalscore}<br />
+            <p>{'Ihre Gesamtpunktzahl'|i18n( 'xrowquestionnaire/datatype/view' )}: {$totalscore}</p>
             {if is_set($text)}
-                {'Wir finden das war'|i18n( 'xrowquestionnaire/datatype/view' )}: {$text}
+                <h3>{'Wir finden das war'|i18n( 'xrowquestionnaire/datatype/view' )}</h3>
+                <p>{$text}</p>
             {/if}
         {/if}
 	

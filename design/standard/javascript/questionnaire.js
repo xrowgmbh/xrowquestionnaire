@@ -312,10 +312,20 @@ function addAnswer(id, base, attr, contentobject_id, version, change) {
             var position = jQuery('#sortable_' + id + ' > li').size() + 1;
             var answerID = Math.floor(Math.random() * 2147483647);
             var answer = data.content.template;
-            var newAnswer = answer.replace(/{\$id}/g, id).replace(
-                    /{\$position}/g, position).replace(/{\$answerID}/g,
-                    answerID).replace(/{\$readOnly}/g, readOnly).replace(/{\$answer_text}/g, answerText[i]).replace(/{\$answer_points}/g, answerPoints[i]);
-            jQuery(newAnswer).appendTo('#sortable_' + id);
+            answer = answer.replace(/{\$id}/g, id);
+            answer = answer.replace( /{\$position}/g, position);
+            answer = answer.replace(/{\$answerID}/g,answerID);
+            answer = answer.replace(/{\$readOnly}/g, readOnly);
+            answer = answer.replace(/{\$answer_text}/g, answerText[i]);
+            if ( typeof answerPoints != 'undefined' )
+            {
+                answer = answer.replace(/{\$answer_points}/g, answerPoints[i]);
+            }
+            else
+            {
+            	answer = answer.replace(/{\$answer_points}/g, '');
+            }
+            jQuery('#sortable_' + id).append( answer );
         });
     }
     jQuery("#sortable_" + id).sortable({

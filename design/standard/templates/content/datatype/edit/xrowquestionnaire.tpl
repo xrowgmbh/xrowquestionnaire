@@ -47,9 +47,9 @@
             <input type="checkbox" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][settings][lottery]" {if is_set($attribute.content.settings.lottery)}checked="true"{/if} />
             {'Gewinnspiel'|i18n( 'xrowquestionnaire/datatype/edit' )}
         </label>
-   
-             {'Ergebnisanzeige'|i18n( 'xrowquestionnaire/datatype/edit' )}
         <label>
+             {'Ergebnisanzeige'|i18n( 'xrowquestionnaire/datatype/edit' )}
+        
            
             <select name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][settings][results]">
                 <option {if $attribute.content.settings.results|eq('no')}selected{/if} value="no">{'keine'|i18n( 'xrowquestionnaire/datatype/edit' )}</option>
@@ -58,9 +58,10 @@
             </select>
         </label>
         
-        <label>
+        <label title="{"Sind nur sichtbar sobald die Ergebnisanzeige auf \"eigene\" steht."|i18n( 'xrowquestionnaire/datatype/edit' )}">
              {'Punktspannen'|i18n( 'xrowquestionnaire/datatype/edit' )}
          </label>
+         <i>{"Sind nur sichtbar sobald die Ergebnisanzeige auf \"eigene\" steht."|i18n( 'xrowquestionnaire/datatype/edit' )}</i>
         <div id="pointsRange">
             <ul>
             {if is_set( $attribute.content.settings.ranges)}
@@ -94,8 +95,7 @@
             {/if}
 {*TABSVIEW*}
 </div>
-<br />
-<br />
+
     <p>
         <button class="button" onclick="add('{$attribute_base}', '{$attribute.id}', '{$attribute.contentobject_id}', '{$attribute.version}')" type="button">{'Frage hinzufügen'|i18n( 'xrowquestionnaire/datatype/edit' )}</button>
     </p>
