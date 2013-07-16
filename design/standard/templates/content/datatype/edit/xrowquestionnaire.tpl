@@ -33,10 +33,11 @@
             {'Nur für eingeloggte User'|i18n( 'xrowquestionnaire/datatype/edit' )}
         </label>
        
-         <label>
+         <label title="{"Beim aktiveren dieser option müssen die Teilnehmer einloggen."|i18n( 'xrowquestionnaire/datatype/edit' )}">
               <input type="checkbox" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][settings][play_once]" {if is_set($attribute.content.settings.play_once)}checked="true"{/if} />
              {'Doppeltes Abstimmen nicht möglich'|i18n( 'xrowquestionnaire/datatype/edit' )}
         </label>
+        <i>{"Beim aktiveren dieser option müssen die Teilnehmer einloggen."|i18n( 'xrowquestionnaire/datatype/edit' )}</i>
     
          <label>
             <input type="checkbox" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][settings][captcha]" {if is_set($attribute.content.settings.captcha)}checked="true"{/if} /> 
