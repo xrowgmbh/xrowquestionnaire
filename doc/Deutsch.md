@@ -12,6 +12,8 @@ Das Erweiterung abdeckt folgende Usecases ab.
 * Quiz
 * Gewinnspiel
 
+## Beschreibung der Funktionen
+
 Die Erweiterung beruht durch einen einheitlichen standardisierten Ansatz. Umfragen etc. könnten auf jedweden Content Seiten einfach platziert werden.
 
 Der verfolgte Ansatz beruht darauf, dass das Umfragen etc. als Datentyp zu jeder Klasse hinzugefügt werden können. D.h. Zusatzinformation, die nicht direkt zur Umfrage etc. gehören wie Name Einleitung etc., können einfach erweitert werden. Des Weiteren kann auch, da eine Umfrage als Content Objekt vorliegt, einfach als „embed Objekt“ in Artikeln oder anderen Serviceseiten wie auch Übersichtsseiten und in eZ Flow benutzt werden.
