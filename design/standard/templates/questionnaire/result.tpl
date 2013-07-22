@@ -22,7 +22,19 @@
             {/if}
 	    	<ul style="width: 100%;">
 	    	{foreach $question.answers as $answer}
-	            <li style="background: url({"1x1_result.png"|ezimage(no)});background-size: {$answer.percent}%;background-repeat:no-repeat;">{$answer.text} ({$answer.total})</li>
+	            <li>{$answer.text}
+	            {if $results.settings.quiz}
+	                {if and($answer.correct,$answer.total))}
+	                <span class="correct" title="{'Von Ihnen gewählt und richtig.'|i18n( 'xrowquestionnaire/datatype/view' )}">{'gewählt und richtig'|i18n( 'xrowquestionnaire/datatype/view' )}</span>
+	                {elseif $answer.total}
+	                <span class="false" title="{'Von Ihnen gewählt und falsch.'|i18n( 'xrowquestionnaire/datatype/view' )}">{'gewählt und falsch'|i18n( 'xrowquestionnaire/datatype/view' )}</span>
+	                {/if}
+	            {else}
+	                {if $answer.total}
+	                <span title="{'Von Ihnen gewählt.'|i18n( 'xrowquestionnaire/datatype/view' )}">{'gewählt'|i18n( 'xrowquestionnaire/datatype/view' )}</span>
+	                {/if}
+	            {/if}
+	            </li>
 	        {/foreach}
 	    	</ul>
 	    {/foreach}
@@ -45,7 +57,7 @@
 	    	<strong>{$question.text}</strong>
 	    	<ul style="width: 100%;">
 	    	{foreach $question.answers as $answer}
-	            <li style="background: url({"1x1_result.png"|ezimage(no)}); background-size:{$answer.percent}%;background-repeat:no-repeat;">{$answer.text} ({$answer.total})</li>
+	            <li style="background: url({"1x1_result.png"|ezimage(no)}); background-size:{$answer.percent}%;background-repeat:no-repeat;">{$answer.text} ({$answer.total}) <span class="percent">{$answer.percent}%</span></li>
 	        {/foreach}
 	    	</ul>
 	    {/foreach}

@@ -31,3 +31,7 @@ label {
 #tabelement select,#tabelement input {
     min-width: 100px;
 }
+
+ul.user-attributes li {
+    list-style-type: none;
+}

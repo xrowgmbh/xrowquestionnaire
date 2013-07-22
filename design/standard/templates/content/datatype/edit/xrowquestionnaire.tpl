@@ -37,7 +37,7 @@
               <input type="checkbox" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][settings][play_once]" {if is_set($attribute.content.settings.play_once)}checked="true"{/if} />
              {'Doppeltes Abstimmen nicht möglich'|i18n( 'xrowquestionnaire/datatype/edit' )}
         </label>
-        <i>{"Beim aktiveren dieser option müssen die Teilnehmer einloggen."|i18n( 'xrowquestionnaire/datatype/edit' )}</i>
+        <i>{"Beim Aktiveren dieser Option müssen sich die Teilnehmer einloggen."|i18n( 'xrowquestionnaire/datatype/edit' )}</i>
     
          <label>
             <input type="checkbox" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][settings][captcha]" {if is_set($attribute.content.settings.captcha)}checked="true"{/if} /> 
@@ -48,6 +48,7 @@
             <input type="checkbox" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][settings][lottery]" {if is_set($attribute.content.settings.lottery)}checked="true"{/if} />
             {'Gewinnspiel'|i18n( 'xrowquestionnaire/datatype/edit' )}
         </label>
+        <i>{"Beim Aktiveren dieser Option müssen sich die Teilnehmer einloggen."|i18n( 'xrowquestionnaire/datatype/edit' )}</i>
         <label>
              {'Ergebnisanzeige'|i18n( 'xrowquestionnaire/datatype/edit' )}
         
@@ -75,14 +76,15 @@
     <div class="float-break"></div>
     <button class="button" onclick="addRange('{$attribute_base}','{$attribute.id}')" type="button">{'Punktspanne hinzufügen'|i18n( 'xrowquestionnaire/datatype/edit' )}</button>
     <h3 class="left class-description">{'Benötigte Userattribute'|i18n( 'xrowquestionnaire/datatype/edit' )}</h3>
-    <br />
+    <ul class="user-attributes">
     {def $class_attributes = fetch( 'class', 'attribute_list', hash( 'class_id', ezini('UserSettings', 'UserClassID' ) ) )}
     {foreach $class_attributes as $attr}
-         <label>
+         <li><label>
              <input value="{$attr.id}" type="checkbox" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][settings][user_attributes][{$attr.id}]" {if and(is_set($attribute.content.settings.user_attributes),$attribute.content.settings.user_attributes|contains($attr.id))}checked="true"{/if} />
              {$attr.temporary_object_attribute.contentclass_attribute_name|wash}
-         </label>
+         </label></li>
     {/foreach}
+    </ul>
     {undef $class_attributes}
 </div>
 <div class="context-information">

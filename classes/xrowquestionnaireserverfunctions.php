@@ -174,19 +174,29 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
         	$errors[] = ezpI18n::tr( 'xrowquestionnaire/view', 'Bitte wählen Sie eine Option!' );
         }
 
-        //UserAttributes Required
-        if ( isset( $content["settings"]["user_attributes"] ) )
+        // Voting closed
+        if ( isset( $content["persistent"]["closed"] ) and $content["persistent"]["closed"] == "on" )
         {
-            if ( ! eZUser::currentUser()->isAnonymous() )
-            {
-                $tpl->setVariable( 'question', $content['questions'][0] );
-                $result['template'] = $tpl->fetch( 'design:questionnaire/error_login.tpl' );
-                return $result;
-            }
+            
+            $tpl->setVariable( 'question', $content['questions'][0] ); //show the first question 
+            $result['template'] = $tpl->fetch( 'design:questionnaire/closed.tpl' );
+            return $result;
+        }
+        // Login required
+        if ( ( eZUser::currentUser()->isAnonymous() and isset( $content["settings"]["lottery"] ) ) || ( eZUser::currentUser()->isAnonymous() and isset( $content["settings"]["user_loggedin"] ) and $content["settings"]["user_loggedin"] == "on" )  || ( eZUser::currentUser()->isAnonymous() and isset( $content["settings"]["play_once"] ) and $content["settings"]["play_once"] == "on" ) )
+        {
+            die("asdas");
+            $tpl->setVariable( 'question', $content['questions'][0] );
+            $result['template'] = $tpl->fetch( 'design:questionnaire/error_login.tpl' );
+            return $result;
+        }
+        //UserAttributes Required
+        if ( isset( $content["settings"]["user_attributes"] ) and !eZUser::currentUser()->isAnonymous() )
+        {
             foreach ( $content["settings"]["user_attributes"] as $attributeID )
             {
                 $classattr = eZContentClassAttribute::fetch( $attributeID );
-                
+        
                 $co = eZUser::currentUser()->attribute( 'contentobject' );
                 $dm = $co->dataMap();
                 $missing = array();
@@ -201,21 +211,6 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
             }
             $tpl->setVariable( 'question', $content['questions'][0] );
             $result['template'] = $tpl->fetch( 'design:questionnaire/error_userprofile.tpl' );
-            return $result;
-        }
-        // Voting closed
-        if ( isset( $content["persistent"]["closed"] ) and $content["persistent"]["closed"] == "on" )
-        {
-            
-            $tpl->setVariable( 'question', $content['questions'][0] ); //show the first question 
-            $result['template'] = $tpl->fetch( 'design:questionnaire/closed.tpl' );
-            return $result;
-        }
-        // Login required
-        if ( ( eZUser::currentUser()->isAnonymous() and isset( $content["settings"]["user_loggedin"] ) and $content["settings"]["user_loggedin"] == "on" ) || ( eZUser::currentUser()->isAnonymous() and isset( $content["settings"]["play_once"] ) and $content["settings"]["play_once"] == "on" ) )
-        {
-            $tpl->setVariable( 'question', $content['questions'][0] );
-            $result['template'] = $tpl->fetch( 'design:questionnaire/error_login.tpl' );
             return $result;
         }
         if ( ! eZUser::currentUser()->isAnonymous() and isset( $content["settings"]["play_once"] ) and $content["settings"]["play_once"] == "on" and xrowQuestionnaireResult::isDuplicate( $attribute ) )
