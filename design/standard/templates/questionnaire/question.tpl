@@ -22,9 +22,9 @@
                             <p>
                                 <label>
                                 	{if is_set(ezini($question.answer_type, 'SelectMultiple', 'xrowquestionnaire.ini'))}
-                                	<input type="checkbox" name="answer_id[]" value="{$answer.id}" {if $prev_answers|contains($answer.id)}checked="checked"{/if}/>
+                                	<input id="answer_{rand()}" type="checkbox" name="answer_id[]" value="{$answer.id}" {if $prev_answers|contains($answer.id)}checked="checked"{/if}/>
                                 	{else}
-                                	<input type="radio" name="answer_id[]" value="{$answer.id}" {if $prev_answers|contains($answer.id)}checked="checked"{/if}/>
+                                	<input id="answer_{rand()}" type="radio" name="answer_id[]" value="{$answer.id}" {if $prev_answers|contains($answer.id)}checked="checked"{/if}/>
                                 	{/if} 
                                 	{$answer.text|wash()}
                                 	</label>
@@ -35,7 +35,7 @@
 
                 {undef $answers}
                 <div class="buttonblock">
-                    {if $first|not}
+                    {if and($first|not, $attribute.content.settings.quiz|ne('on'))}
                     	<input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'prev' );" id="question_submit{$question.id}" class="question_submit" type="button" name="submit_vote{$question.id}" value="{'Zurück'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'vorherige Frage'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
                     {/if}
                     <input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'submit' );" id="question_submit{$question.id}" class="question_submit" type="button" name="submit_vote{$question.id}" value="{'Abstimmen'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'Geben Sie Ihre Stimme ab!'|i18n( 'xrowquestionnaire/datatype/edit' )}" />

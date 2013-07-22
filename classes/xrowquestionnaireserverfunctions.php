@@ -169,11 +169,15 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
             $result['template'] = $tpl->fetch( 'design:questionnaire/captcha.tpl' );
             return $result;
         }
-        
-        if ( ( ! isset( $data['answer_id'] ) && (int) $data['question_id'] && isset( $data['submit'] ) ) || ( ! isset( $data['answer_id'] ) && (int) $data['question_id'] ) && ! isset( $data['next'] ) )
+        if ( isset( $data['submit'] ) && !isset( $data['answer_id'] ) && (int) $data['question_id'] )
+        {
+        	$errors[] = ezpI18n::tr( 'xrowquestionnaire/view', 'Bitte wählen Sie eine Option!' );
+        }
+        elseif  ( isset( $data['next'] ) && ! isset( $data['answer_id'] ) && (int) $data['question_id'] )
         {
             $errors[] = ezpI18n::tr( 'xrowquestionnaire/view', 'Bitte wählen Sie eine Option!' );
         }
+
         //UserAttributes Required
         if ( isset( $content["settings"]["user_attributes"] ) )
         {
@@ -227,7 +231,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
         
         $showQuestionResult = false;
         
-        if ( isset( $data['answer_id'] ) and ! isset( $settings['lottery'] ) and isset( $settings['quiz'] ) )
+        if ( isset( $data['answer_id'] ) and ! isset( $settings['lottery'] ) and isset( $settings['quiz'] ) and $data['prev'] != 'on')
         {
             $showQuestionResult = true;
         }
@@ -238,8 +242,9 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
                 xrowQuestionnaireResult::removeAnswers( $attribute->ID, $questionremove['id'] );
             }
         }
+        
         //submit || next || prev
-        if ( (int) $data['answer_id'] && ( isset( $data['submit'] ) || isset( $data['next'] ) || isset( $data['prev'] ) ) )
+        if ( (int) $data['answer_id'] && ( isset( $data['submit'] ) || isset( $data['next'] ) ) || isset( $data['prev'] ) )
         {
             for ( $i = 0; count( $content['questions'] ) > $i; $i ++ )
             {
@@ -336,6 +341,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
             $question = ( $content['questions'][$i - 1] <= 0 ) ? $content['questions'][0] : $content['questions'][$i];
             ( ! isset( $data['again'] ) ) ? $tpl->setVariable( 'errors', $errors ) : null;
         }
+
         //store vote - delete vote
         if ( isset( $data['answer_id'] ) and ( $data['answer_id'] || is_array( $data['answer_id'] ) ) )
         {
@@ -389,7 +395,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
                     $current_answers[] = $answer;
                 }
             }
-            
+
             $tpl->setVariable( 'current_answers', $current_answers );
             $tpl->setVariable( 'correct_answers', $correct_answers );
             

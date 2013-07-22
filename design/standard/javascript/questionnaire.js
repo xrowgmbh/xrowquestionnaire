@@ -15,14 +15,11 @@
             // this.attr( 'attribute_id', this.attr( 'id' ).split("_",2)[1] );
             // var id = this.attr( 'id' ).split("_",1);
             // alert(this.attr( 'attribute_id' ));
-
         },
         submit : function() {
-            var data = this.serializeJSON();
             var id = this.attr('id').split("_", 2)[1];
-            data["submit"] = "on";
-            
-            jQuery.ez('xrowquestionnaire_page::questionnaire', data, function(
+            var data = this.serialize();
+            jQuery.ez('xrowquestionnaire_page::questionnaire', data + "&submit=on", function(
                     result) {
                 if (result.content.error == true) {
                     jQuery('#error-msg-' + id).html(result.content.template);
@@ -43,11 +40,9 @@
             });
         },
         start : function() {
-            var data = this.serializeJSON();
             var id = this.attr('id').split("_", 2)[1];
-            data["start"] = "on";
-
-            jQuery.ez('xrowquestionnaire_page::questionnaire', data, function(
+            var data = this.serialize();
+            jQuery.ez('xrowquestionnaire_page::questionnaire', data + "&start=on", function(
                     result) {
                 if (result.content.error == true) {
                     jQuery('#error-msg-' + id).html(result.content.template);
@@ -58,11 +53,9 @@
             });
         },
         again : function() {
-            var data = this.serializeJSON();
             var id = this.attr('id').split("_", 2)[1];
-            data["again"] = "on";
-
-            jQuery.ez('xrowquestionnaire_page::questionnaire', data, function(
+            var data = this.serialize();
+            jQuery.ez('xrowquestionnaire_page::questionnaire', data + "&again=on", function(
                     result) {
                 if (result.content.error == true) {
                     jQuery('#error-msg-' + id).html(result.content.template);
@@ -73,11 +66,9 @@
             });
         },
         next : function() {
-            var data = this.serializeJSON();
             var id = this.attr('id').split("_", 2)[1];
-            data["next"] = "on";
-
-            jQuery.ez('xrowquestionnaire_page::questionnaire', data, function(
+            var data = this.serialize();
+            jQuery.ez('xrowquestionnaire_page::questionnaire', data + "&next=on", function(
                     result) {
                 if (result.content.error == true) {
                     jQuery('#error-msg-' + id).html(result.content.template);
@@ -89,11 +80,9 @@
             });
         },
         prev : function() {
-            var data = this.serializeJSON();
             var id = this.attr('id').split("_", 2)[1];
-            data["prev"] = "on";
-
-            jQuery.ez('xrowquestionnaire_page::questionnaire', data, function(
+            var data = this.serialize();
+            jQuery.ez('xrowquestionnaire_page::questionnaire', data + "&prev=on", function(
                     result) {
                 if (result.content.error == true) {
                     jQuery('#error-msg-' + id).html(result.content.template);
@@ -105,8 +94,8 @@
             });
         },
         results : function() {
-            var data = this.serializeJSON();
             var id = this.attr('id').split("_", 2)[1];
+            var data = this.serialize();
             jQuery.ez('xrowquestionnaire_page::show_result', data, function(
                     result) {
                 jQuery('#voting-box-' + id).html(result.content.template);

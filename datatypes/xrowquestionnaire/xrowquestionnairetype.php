@@ -172,7 +172,9 @@ class xrowQuestionnaireType extends eZDataType
             foreach ( $question['answers'] as $answer )
             {
                 if ( isset( $answer['correct'] ) && $answer['correct'] == 'on' )
+                {
                     return true;
+                }
             }
         }
         return false;
@@ -185,14 +187,22 @@ class xrowQuestionnaireType extends eZDataType
         $id = key( $data ); 
         $data = $data[$id]; 
         $dataold = $contentObjectAttribute->content();
+        
         if ( self::isQuiz( $data['questions'] ) )
         {
+            
             $data['settings']['quiz'] = 'on';
         }
+        elseif( isset( $data['settings']['quiz'] ) )
+        {
+        	unset( $data['settings']['quiz'] );
+        }
+        
         if ( isset( $dataold['persistent'] ) )
         {
             $data['persistent'] = $dataold['persistent'];
         }
+
         $contentObjectAttribute->setContent( $data );
 
         return true;

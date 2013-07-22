@@ -27,7 +27,7 @@
 
 <form id="form_{$attribute.id}" method="post" action="">
 <div class="buttonblock">
-        {if $first|not}
+        {if and($first|not, $attribute.content.settings.quiz|ne('on'))}
         <input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'prev' );" id="question_submit{$question.id}" class="question_submit" type="button" name="submit_vote{$question.id}" value="{'Zurück'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'vorherige Frage'|i18n( 'xrowquestionnaire/datatype/edit' )}" />                     
         {/if}
         <input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'next' );" id="question_submit{$question.id}" class="question_submit" type="button" name="submit_vote{$question.id}" value="{'Weiter'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'nächste Frage'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
