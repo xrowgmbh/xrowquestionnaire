@@ -39,7 +39,7 @@
                     	<input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'prev' );" id="question_submit{$question.id}" class="question_submit" type="button" name="submit_vote{$question.id}" value="{'Zurück'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'vorherige Frage'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
                     {/if}
                     <input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'submit' );" id="question_submit{$question.id}" class="question_submit" type="button" name="submit_vote{$question.id}" value="{'Abstimmen'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'Geben Sie Ihre Stimme ab!'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
-                    {if $attribute.content.settings.results|ne('no')}
+                    {if or(and($last,$attribute.content.settings.results|ne('no')), and( $first, $attribute.content.settings.results|eq('all') ) )}
                     	<input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'results' );" id="show_result_button{$attribute.id}" type="button" class="show_result_button" name="show_result" value="{'Ergebnis anzeigen'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'Ergebnisse anzeigen'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
                     {/if}
                 </div>

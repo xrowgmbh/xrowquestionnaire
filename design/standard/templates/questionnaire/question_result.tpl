@@ -32,7 +32,7 @@
         {/if}
         <input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'next' );" id="question_submit{$question.id}" class="question_submit" type="button" name="submit_vote{$question.id}" value="{'Weiter'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'nächste Frage'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
 
-        {if $attribute.content.settings.results|ne( 'no' )}
+        {if and($last,$attribute.content.settings.results|ne('no'))}
         	<input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'results' );" id="show_result_button{$attribute.id}" type="button" class="show_result_button" name="show_result" value="{'Ergebnis anzeigen'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'Ergebnisse anzeigen'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
         {/if}
 </div>

@@ -173,10 +173,6 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
         {
         	$errors[] = ezpI18n::tr( 'xrowquestionnaire/view', 'Bitte wählen Sie eine Option!' );
         }
-        elseif  ( isset( $data['next'] ) && ! isset( $data['answer_id'] ) && (int) $data['question_id'] )
-        {
-            $errors[] = ezpI18n::tr( 'xrowquestionnaire/view', 'Bitte wählen Sie eine Option!' );
-        }
 
         //UserAttributes Required
         if ( isset( $content["settings"]["user_attributes"] ) )
