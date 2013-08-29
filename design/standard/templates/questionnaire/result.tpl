@@ -1,5 +1,4 @@
-{def $totalscore = 0
-     $points = false}
+{def $points = false}
 {if is_set($results.settings.ranges)}
 	{def $text = $results.settings.ranges.0.text}
 {/if}
@@ -15,8 +14,7 @@
 	    {foreach $results.questions as $question}
 	    	<strong>{$question.text}</strong><br />
             {if $question.answer_type|ne('grades')}
-                {set $totalscore = $totalscore|sum($question.score)
-                     $points = true}
+                {set $points = true}
                 
                 <strong>{'Punkte'|i18n( 'xrowquestionnaire/datatype/view' )}: {$question.score}</strong>
             {/if}
@@ -39,13 +37,13 @@
 	    	</ul>
 	    {/foreach}
         {foreach $results.settings.ranges as $key => $range}
-           {if $totalscore|le($range.points)}
+           {if $results.total_score|le($range.points)}
                {set $text = $range.text}
                {break}
            {/if}
         {/foreach}
         {if $points|eq(true)}
-            <p>{'Ihre Gesamtpunktzahl'|i18n( 'xrowquestionnaire/datatype/view' )}: {$totalscore}</p>
+            <p>{'Ihre Gesamtpunktzahl'|i18n( 'xrowquestionnaire/datatype/view' )}: {$results.total_score}</p>
             {if is_set($text)}
                 <h3>{'Wir finden das war'|i18n( 'xrowquestionnaire/datatype/view' )}</h3>
                 <p>{$text}</p>

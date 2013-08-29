@@ -22,8 +22,10 @@
             <input type="hidden" class="questionPosition" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][questions][{$question.id}][position]" value="{$question.position}" />
             <label for="question">{'Frage:'|i18n('xrowquestionnaire/datatype/edit')}</label>
             <textarea name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][questions][{$question.id}][text]" rows="3" cols="24">{$question.text}</textarea>
+            {*
             <label for="points" title="{'Diese Punktzahl wird vergeben, sobald alle Antworten richtig beantwortet wurden.'|i18n('xrowquestionnaire/datatype/edit')}">{'Punktzahl:'|i18n('xrowquestionnaire/datatype/edit')}</label>
             <input type="text" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][questions][{$question.id}][points]" value="{$question.points}" />
+            *}
             <label for="object_relation">{'Bildverknüpfung:'|i18n('xrowquestionnaire/datatype/edit')}</label>
             <input type="text" id="xrowquestionnaire_{$attribute.contentobject_id}_{$attribute.version}_images_{$attribute.id}_{$question.id}_relation" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][questions][{$question.id}][object_relation]" value="{$question.object_relation}" />
             <br />

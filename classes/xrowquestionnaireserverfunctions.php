@@ -431,7 +431,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
         {
             $content['total'] = 0;
             $content['max_score'] = 0;
-
+            $content['total_score'] = 0;
             
             foreach ( $content['questions'] as $key => $value )
             {
@@ -472,6 +472,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
                         $content['questions'][$key]['answers'][$key2]['total'] = $result[0]['count'];
                         $content['questions'][$key]['total'] = $content['questions'][$key]['total'];
                         $content['questions'][$key]['score'] += $result[0]['score']; //user Score
+                        $content['total_score'] += $result[0]['score'];
                     }
                     else
                     {

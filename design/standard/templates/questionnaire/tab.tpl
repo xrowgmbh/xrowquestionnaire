@@ -1,4 +1,4 @@
-    <div id="question_{literal}{$id}{/literal} "  class="question_{literal}{$id}{/literal} question_tabs">
+    <div id="question_{literal}{$id}{/literal} " class="question_{literal}{$id}{/literal} question_tabs">
         <ul class="draggable">
             <li><a href="#tabs-1_{$id}">{'Frage'|i18n('xrowquestionnaire/datatype/edit')}</a></li>
             <li><a href="#tabs-2_{$id}">{'Antworten'|i18n('xrowquestionnaire/datatype/edit')}</a></li>
@@ -23,8 +23,10 @@
             
             <label for="question">{'Frage:'|i18n('xrowquestionnaire/datatype/edit')}</label>
             <textarea name="{$attribute_base}_xrowquestionnaire[{$attrID}][questions][{literal}{$id}{/literal}][text]" rows="3" cols="24"></textarea>
+            {*
             <label for="points" title="{'Diese Punktzahl wird vergeben, sobald alle Antworten richtig beantwortet wurden.'|i18n('xrowquestionnaire/datatype/edit')}">{'Punktzahl:'|i18n('xrowquestionnaire/datatype/edit')}</label>
             <input type="text" name="{$attribute_base}_xrowquestionnaire[{$attrID}][questions][{literal}{$id}{/literal}][points]" />
+            *}
             <label for="object_relation">{'Bildverknüpfung:'|i18n('xrowquestionnaire/datatype/edit')}</label>
             <input type="text" id="xrowquestionnaire_{$contentobject_id}_{$version}_images_{$attrID}_{literal}{$id}{/literal}_relation" name="{$attribute_base}_xrowquestionnaire[{$attrID}][questions][{literal}{$id}{/literal}][object_relation]" value="" />
             <br />
