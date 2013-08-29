@@ -6,8 +6,9 @@ Installation guide xrowquestionnaire
 4) Run autoloads
 5) Install the content class package
 6) Override the xrowquestionnaire.ini and put in your proper recaptcha key!
-7) The ezjscore function call for "xrowquestionnaire_page" needs to be enabled for all users 
-8) Clear cache
+7) The ezjscore function call for "xrowquestionnaire_page" needs to be enabled for all users
+8 optional ) Apply the recaptcha code as defined in the  xrowquestionnaire.ini[RecaptchaSetting]
+9) Clear cache
 
 After adding the questionnaire datatype to any of your content classes you are able to use it. 
 Don't forget to copy the template override settings to any siteaccess you want to use it in.

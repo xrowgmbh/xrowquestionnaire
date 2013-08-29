@@ -39,8 +39,9 @@
 	    	</ul>
 	    {/foreach}
         {foreach $results.settings.ranges as $key => $range}
-           {if $range.points|le($totalscore)}
+           {if $totalscore|le($range.points)}
                {set $text = $range.text}
+               {break}
            {/if}
         {/foreach}
         {if $points|eq(true)}
@@ -57,7 +58,7 @@
 	    	<strong>{$question.text}</strong>
 	    	<ul style="width: 100%;">
 	    	{foreach $question.answers as $answer}
-	            <li style="background: url({"1x1_result.png"|ezimage(no)}); background-size:{$answer.percent}%;background-repeat:no-repeat;">{$answer.text} ({$answer.total}) <span class="percent">{$answer.percent}%</span></li>
+	            <li style="background: url({"1x1_result.png"|ezimage(no)}); background-size:{$answer.percent}%;background-repeat:no-repeat;">{$answer.text} (<abbr title="{"%number_answers% von %number_total% Teilnehmern haben diese Antwort gewählt."|i18n( '', '', hash( '%number_answers%', $answer.total, '%number_total%', $question.total ) )}">{$answer.total}</abbr>) <span class="percent">{$answer.percent}%</span></li>
 	        {/foreach}
 	    	</ul>
 	    {/foreach}

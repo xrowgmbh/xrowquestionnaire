@@ -436,7 +436,14 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
             foreach ( $content['questions'] as $key => $value )
             {
                 $content['questions'][$key]['total'] = 0;
-                
+
+                $result = $db->arrayQuery( "SELECT count( DISTINCT session ) as total FROM `ezx_xrowquestionnaire_results` WHERE question_id = '" . $value['id']. "'" );
+                if (isset ($result[0]['total'] ) )
+                {
+                    $content['questions'][$key]['total'] = $result[0]['total'];
+                }
+                $content['total'] += $content['questions'][$key]['total'];
+
                 foreach ( $content['questions'][$key]['answers'] as $key2 => $value2 )
                 {
                     $content['questions'][$key]['answers'][$key2]['total'] = "0";
@@ -451,19 +458,19 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
                         {
                             $sql = "SELECT count(answer_id) as count, answer_id, score FROM `ezx_xrowquestionnaire_results` WHERE user_id = '" . $db->escapeString( eZUser::currentUserID() ) . "' and question_id = '" . $value['id'] . "' and answer_id='" . $content['questions'][$key]['answers'][$key2]['id'] . "' GROUP by answer_id";
                         }
+                        $total = 1;
                     }
                     else
                     {
                         $sql = "SELECT count(answer_id) as count, answer_id, score FROM `ezx_xrowquestionnaire_results` WHERE question_id = '" . $value['id'] . "' and answer_id='" . $content['questions'][$key]['answers'][$key2]['id'] . "' GROUP by answer_id";
                     }
-                    
+
                     $result = $db->arrayQuery( $sql );
                     
                     if ( isset( $result[0] ) )
                     {
                         $content['questions'][$key]['answers'][$key2]['total'] = $result[0]['count'];
-                        $content['questions'][$key]['total'] += $result[0]['count'];
-                        $content['total'] += $result[0]['count'];
+                        $content['questions'][$key]['total'] = $content['questions'][$key]['total'];
                         $content['questions'][$key]['score'] += $result[0]['score']; //user Score
                     }
                     else
@@ -471,7 +478,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
                         $content['questions'][$key]['answers'][$key2]['total'] = 0;
                     }
                 }
-
+                
                 for ( $i = 0; $i < count( $content['questions'][$key]['answers'] ); $i ++ )
                 {
                     $content['max_score'] += $content['questions'][$key]['answers'][$i]['points'];

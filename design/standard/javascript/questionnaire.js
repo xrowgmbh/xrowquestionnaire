@@ -341,8 +341,8 @@ function removeOnChange(id){
     jQuery('.new_set_'+id).removeAttr('onchange');
 }
 
-function remove(node) {
-    jQuery('.question_' + node).remove();
+function remove_question(id) {
+    jQuery('#question_' + id).remove();
     updatePosition('questions');
 }
 

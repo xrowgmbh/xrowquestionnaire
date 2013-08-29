@@ -1,4 +1,4 @@
-    <div id="tabelement" class="question_{$question.id} question_tabs">
+    <div id="question_{$question.id}" class="question_{$question.id} tabelement question_tabs">
         <ul class="draggable">
             <li><a href="#tabs-1_{$question.id}">{'Frage'|i18n('xrowquestionnaire/datatype/edit')}</a></li>
             <li><a href="#tabs-2_{$question.id}">{'Antworten'|i18n('xrowquestionnaire/datatype/edit')}</a></li>
@@ -11,12 +11,14 @@
                     <option {if $question.answer_type|eq($answerType)}selected{/if} value="{$answerType}">{ezini($answerType, 'Description', 'xrowquestionnaire.ini')}</option>
                 {/foreach}
             </select>
+            {if ezini('LayoutTypes', 'AvailableLayoutTypes', 'xrowquestionnaire.ini')|count}
             <label for="layout">{'Layout:'|i18n('xrowquestionnaire/datatype/edit')}</label>
             <select name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][questions][{$question.id}][layout]">
                 {foreach ezini('LayoutTypes', 'AvailableLayoutTypes', 'xrowquestionnaire.ini') as $layoutType}
                     <option {if $question.layout|eq($layoutType)}selected{/if} value="{$layoutType}">{ezini($layoutType, 'Description', 'xrowquestionnaire.ini')}</option>
                 {/foreach}
             </select>
+            {/if}
             <input type="hidden" class="questionPosition" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][questions][{$question.id}][position]" value="{$question.position}" />
             <label for="question">{'Frage:'|i18n('xrowquestionnaire/datatype/edit')}</label>
             <textarea name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][questions][{$question.id}][text]" rows="3" cols="24">{$question.text}</textarea>
@@ -28,7 +30,7 @@
             <br />
             <button class="button uploadImage" type="button" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][questions][{$question.id}][image]" id="xrowquestionnaire_{$attribute.contentobject_id}_{$attribute.version}_images_{$attribute.id}_{$question.id}">Bild hinzufügen</button>
             <input type="hidden" id="xrowquestionnaire_{$attribute.contentobject_id}_{$attribute.version}_images_{$attribute.id}_{$question.id}_url" value={concat( 'questionnaire/upload/', $attribute.contentobject_id, '/', $attribute.version, '/images' )|ezurl()} />
-            <button class="button" type="button" onclick="remove({$question.id});">Frage entfernen</button>
+            <button class="button" type="button" onclick="remove_question( '{$question.id}' );">Frage entfernen</button>
         </div>
         <div id="tabs-2_{$question.id}">
             <ul id="sortable_{$question.id}" class="ui-helper-reset">

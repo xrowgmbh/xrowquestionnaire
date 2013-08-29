@@ -18,7 +18,7 @@
 		<input id="recaptcha-{$attribute.id}" type="hidden" name="recaptcha" />
 		<div id="captcha_{$attribute.id}"></div>
 
-		<input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'submit' );" id="question_submit{$question.id}" class="question_submit" type="button" name="submit_vote{$question.id}" value="Weiter" title="{'Geben Sie Ihre Stimme ab!'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
+		<input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'submit' );" id="question_submit{$question.id}" class="question_submit" type="button" name="submit_vote{$question.id}" value="Weiter" title="{'Lösen Sie das Rätsel.'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
 </form>
 {/if}
 {if is_set($errors)}

@@ -52,7 +52,10 @@ class xrowQuestionnaireFunctions
 
     static function validateCaptcha( $recaptcha_response_field, $recaptcha_challenge_field )
     {
-        require_once 'recaptchalib.php';
+        if ( !function_exists( 'recaptcha_check_answer') )
+        {
+            require_once 'extension/xrowquestionnaire/classes/recaptchalib.php';
+        }
         
         $ini = eZINI::instance( 'xrowquestionnaire.ini' );
         $privateKey = $ini->variable( 'RecaptchaSetting', 'PrivateKey' );

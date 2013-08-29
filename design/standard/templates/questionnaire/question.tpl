@@ -1,6 +1,6 @@
 <div id="question_{$question.id}" class="question {$question.layout}">
 <form id="form_{$attribute.id}" method="post" action="">
-{if is_set($count)}
+{if and( is_set($count), $count|ne(1) )}
     <p>Frage {$number_of} von {$count}</p>
 {/if}
                 {if $question.object_relation}
@@ -38,7 +38,7 @@
                     {if and($first|not, $attribute.content.settings.quiz|ne('on'))}
                     	<input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'prev' );" id="question_submit{$question.id}" class="question_submit" type="button" name="submit_vote{$question.id}" value="{'Zurück'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'vorherige Frage'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
                     {/if}
-                    <input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'submit' );" id="question_submit{$question.id}" class="question_submit" type="button" name="submit_vote{$question.id}" value="{'Abstimmen'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'Geben Sie Ihre Stimme ab!'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
+                    <input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'submit' );" id="question_submit{$question.id}" class="question_submit" type="button" name="submit_vote{$question.id}" value="{'Absenden'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'Senden Sie Ihre Antwort ab!'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
                     {if or(and($last,$attribute.content.settings.results|ne('no')), and( $first, $attribute.content.settings.results|eq('all') ) )}
                     	<input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'results' );" id="show_result_button{$attribute.id}" type="button" class="show_result_button" name="show_result" value="{'Ergebnis anzeigen'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'Ergebnisse anzeigen'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
                     {/if}
