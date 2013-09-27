@@ -1,5 +1,5 @@
 <div class="context-information">
-    <p class="left class-description">{'Administrative Aktionen'|i18n( 'xrowquestionnaire/datatype/edit' )}</p>
+    <h3 class="left class-description">{'Administrative Aktionen'|i18n( 'xrowquestionnaire/datatype/edit' )}</h3>
     <div class="break"></div>
     <p>
         {def $has_data=questionnaire_has_data( $attribute.id )}
@@ -85,6 +85,7 @@
          </label></li>
     {/foreach}
     </ul>
+    <i>{"Beim Aktiveren dieser Option müssen sich die Teilnehmer einloggen."|i18n( 'xrowquestionnaire/datatype/edit' )}</i>
     {undef $class_attributes}
 </div>
 <div class="context-information">

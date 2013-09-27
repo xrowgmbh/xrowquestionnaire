@@ -202,7 +202,10 @@ class xrowQuestionnaireType extends eZDataType
         {
             $data['persistent'] = $dataold['persistent'];
         }
-
+        if ( is_array( $data['settings']['user_attributes'] ) and count( $data['settings']['user_attributes'] ) )
+        {
+            $data['settings']['user_loggedin'] = 1;
+        }
         $contentObjectAttribute->setContent( $data );
 
         return true;
