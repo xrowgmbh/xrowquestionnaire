@@ -18,6 +18,11 @@
 		{else}
 			<button type="button" disabled="disabled">{'Ergebnisse zurücksetzen'|i18n( 'xrowquestionnaire/datatype/edit' )}</button>
 		{/if}
+		{if questionnaire_has_data( $attribute.id )}
+            <input class="button" type="submit" name="CustomActionButton[{$attribute.id}_download]" value="{'Teilnehmerliste runterladen'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
+		{else}
+			<button type="button" disabled="disabled">{'Teilnehmerliste runterladen'|i18n( 'xrowquestionnaire/datatype/edit' )}</button>
+		{/if}
     </p>
     {if is_set($attribute.content.persistent.winner)}
         <p>{'Gewinner'|i18n( 'xrowquestionnaire/datatype/edit' )}</p>
@@ -59,7 +64,10 @@
                 <option {if $attribute.content.settings.results|eq('all')}selected{/if} value="all">{'alle'|i18n( 'xrowquestionnaire/datatype/edit' )}</option>
             </select>
         </label>
-        
+        <label>
+             {'Start Datum'|i18n( 'xrowquestionnaire/datatype/edit' )} <input id="{$attribute_base}_xrowquestionnaire[{$attribute.id}][settings][date_start]" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][settings][date_start]" type="text" class="jquery-datepicker" placeholder="dd.mm.yyyy" {if is_set($attribute.content.settings.date_start)} value="{$attribute.content.settings.date_start}"{/if}/>
+
+        </label>
         <label title="{"Sind nur sichtbar sobald die Ergebnisanzeige auf \"eigene\" steht."|i18n( 'xrowquestionnaire/datatype/edit' )}">
              {'Punktspannen'|i18n( 'xrowquestionnaire/datatype/edit' )}
          </label>

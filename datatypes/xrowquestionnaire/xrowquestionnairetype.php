@@ -3,11 +3,10 @@
 class xrowQuestionnaireType extends eZDataType
 {
     const DATA_TYPE_STRING = "xrowquestionnaire";
-
-    /*!
-     Construction of the class, note that the second parameter in eZDataType
-     is the actual name showed in the datatype dropdown list.
-    */
+    
+    /*
+     * ! Construction of the class, note that the second parameter in eZDataType is the actual name showed in the datatype dropdown list.
+     */
     function __construct()
     {
         parent::__construct( self::DATA_TYPE_STRING, ezpI18n::tr( 'xrowquestionnaire/datatype', 'Questionnaire', 'Datatype name' ), array( 
@@ -17,7 +16,6 @@ class xrowQuestionnaireType extends eZDataType
 
     function initializeObjectAttribute( $contentObjectAttribute, $currentVersion, $originalContentObjectAttribute )
     {
-        
         if ( $currentVersion != false )
         {
             $contentObjectID = $contentObjectAttribute->attribute( 'contentobject_id' );
@@ -52,16 +50,13 @@ class xrowQuestionnaireType extends eZDataType
                 $contentObjectAttribute->store();
             }
         }
-    
     }
-
-    /*!
-     Validates the input for this datatype.
-     \return True if input is valid.
-    */
+    
+    /*
+     * ! Validates the input for this datatype. \return True if input is valid.
+     */
     function validateObjectAttributeHTTPInput( $http, $base, $contentObjectAttribute )
     {
-        
         $data = $http->attribute( 0 );
         if ( isset( $data['PublishButton'] ) )
         {
@@ -95,6 +90,7 @@ class xrowQuestionnaireType extends eZDataType
 
     /**
      * store the contentobjectattribute into database
+     * 
      * @see kernel/classes/eZDataType#storeObjectAttribute($objectAttribute)
      */
     function storeObjectAttribute( $contentObjectAttribute )
@@ -114,7 +110,6 @@ class xrowQuestionnaireType extends eZDataType
                 $data = ArrayToXML::toArray( $objectAttribute->attribute( 'data_text' ) );
                 $objectAttribute->setContent( $data );
                 return $objectAttribute->Content;
-            
             }
             catch ( Exception $e )
             {
@@ -160,11 +155,16 @@ class xrowQuestionnaireType extends eZDataType
             case "reset":
                 xrowQuestionnaireResult::cleanupByAttributeID( $contentObjectAttribute->attribute( 'id' ) );
                 break;
+            case "download":
+                xrowQuestionnaireResult::downloadParticipants( $contentObjectAttribute );
+                
+                break;
             default:
                 ;
                 break;
         }
     }
+
     static function isQuiz( $questions )
     {
         foreach ( $questions as $question )
@@ -179,13 +179,14 @@ class xrowQuestionnaireType extends eZDataType
         }
         return false;
     }
+
     function fetchObjectAttributeHTTPInput( $http, $base, $contentObjectAttribute )
     {
         $data = $http->attribute( 0 );
         
         $data = $data[$base . '_xrowquestionnaire'];
-        $id = key( $data ); 
-        $data = $data[$id]; 
+        $id = key( $data );
+        $data = $data[$id];
         $dataold = $contentObjectAttribute->content();
         
         if ( self::isQuiz( $data['questions'] ) )
@@ -193,9 +194,9 @@ class xrowQuestionnaireType extends eZDataType
             
             $data['settings']['quiz'] = 'on';
         }
-        elseif( isset( $data['settings']['quiz'] ) )
+        elseif ( isset( $data['settings']['quiz'] ) )
         {
-        	unset( $data['settings']['quiz'] );
+            unset( $data['settings']['quiz'] );
         }
         
         if ( isset( $dataold['persistent'] ) )
@@ -207,7 +208,7 @@ class xrowQuestionnaireType extends eZDataType
             $data['settings']['user_loggedin'] = 1;
         }
         $contentObjectAttribute->setContent( $data );
-
+        
         return true;
     }
 
@@ -233,7 +234,6 @@ class xrowQuestionnaireType extends eZDataType
     {
         return '';
     }
-
 }
 
 eZDataType::register( xrowQuestionnaireType::DATA_TYPE_STRING, 'xrowQuestionnaireType' );

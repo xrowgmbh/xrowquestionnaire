@@ -127,6 +127,11 @@
 jQuery(document)
         .ready(
                 (function() {
+                	console.log( jQuery( "input.jquery-datepicker" ) );
+                	//jQuery.datepicker.parseDate( "yy-mm-dd", "2007-01-26" );
+                	jQuery.datepicker.setDefaults( $.datepicker.regional[ "de" ] );
+                    jQuery( "input.jquery-datepicker" ).datepicker();
+                    console.log( jQuery( "input.jquery-datepicker" ) );
                     if (jQuery('#tabsView').length) {
                         jQuery("#tabsView").sortable({
                             stop : function(event, ui) {

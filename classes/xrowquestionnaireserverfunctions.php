@@ -206,11 +206,11 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
             }
             if ( ! empty( $missing ) )
             {
+                $tpl->setVariable( 'question', $content['questions'][0] );
                 $tpl->setVariable( 'missing', $missing );
+                $result['template'] = $tpl->fetch( 'design:questionnaire/error_userprofile.tpl' );
+                return $result;
             }
-            $tpl->setVariable( 'question', $content['questions'][0] );
-            $result['template'] = $tpl->fetch( 'design:questionnaire/error_userprofile.tpl' );
-            return $result;
         }
         if ( ! eZUser::currentUser()->isAnonymous() and isset( $content["settings"]["play_once"] ) and $content["settings"]["play_once"] == "on" and xrowQuestionnaireResult::isDuplicate( $attribute ) )
         {
@@ -338,11 +338,13 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
             $db = eZDB::instance();
             $db->begin();
             xrowQuestionnaireFunctions::storeResult( $attribute, $data );
+            
             if ( isset( $last_question ) and $last_question['id'] == (int) $data['question_id'] and isset( $data['answer_id'] ) )
             {
                 $operationResult = eZOperationHandler::execute( 'questionnaire', 'completed', array( 
                     'user_id' => eZUser::currentUserID() , 
-                    'questionnaire_id' => $attribute->ID 
+                    'object_id' => $attribute->ContentObjectID,
+                    'class_identifier' => $attribute->contentClassAttributeIdentifier
                 ) );
                 
                 switch ( $operationResult['status'] )

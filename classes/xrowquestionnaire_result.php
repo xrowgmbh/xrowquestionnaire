@@ -77,6 +77,7 @@ class xrowQuestionnaireResult extends eZPersistentObject
                 'id' 
             ) , 
             'function_attributes' => array( 
+                'user' => 'user' ,
                 'cleanup_by_attribute' => 'cleanupByAttributeID' , 
                 'answer_details' => 'getAnswerDetails' 
             ) , 
@@ -116,7 +117,10 @@ class xrowQuestionnaireResult extends eZPersistentObject
         $object->store();
         return $object;
     }
-
+    public static function user()
+    {
+        return eZUser::fetch( $this->attribute( 'user_id' ) );
+    }
     static function fetchList( eZContentObjectAttribute $attribute )
     {
         return eZPersistentObject::fetchObjectList( self::definition(), null, array( 
@@ -176,6 +180,45 @@ class xrowQuestionnaireResult extends eZPersistentObject
         $return = array_unique( $return );
         return $return;
     }
+    static function fetchParticipants( eZContentObjectAttribute $attribute )
+    {
+        $users = array();
+        $list = eZPersistentObject::fetchObjectList( self::definition(), null, array(
+        'attribute_id' => $attribute->attribute( 'id' )
+        ), null, null, true, array( 'user_id' ) );
+        
+        foreach ( $list as $fields )
+        {
+            $users[] = eZUser::fetch( $fields->attribute( "user_id" ) );
+        }
+        return $users;
+    }
+
+    static function downloadParticipants( eZContentObjectAttribute $attribute )
+    {
+        $list = self::fetchParticipants( $attribute );
+        
+        $tmpfname = tempnam( eZSys::cacheDirectory(), "csv_" );
+        $head = array("contentibject_id", "name", "email", "url" );
+        $fp = fopen( $tmpfname, 'w' );
+        fprintf( $fp, chr( 0xEF ) . chr( 0xBB ) . chr( 0xBF ) );
+        
+        fputcsv( $fp, $head, ";" );
+        
+        foreach ( $list as $user )
+        {
+            $row = array( $user->attribute( "contentobject_id" ), $user->attribute('contentobject')->attribute('name'),$user->attribute('email'), "http://" . eZSys::hostname() . "/content/view/full/" . $user->attribute('contentobject')->attribute('main_node_id') );
+            fputcsv( $fp, $row, ";" );
+        }
+        
+        fclose( $fp );
+        ob_end_clean();
+        eZSession::stop();
+        eZFile::downloadHeaders( $tmpfname, true, "Participants.csv" );
+        eZFile::downloadContent( $tmpfname );
+        unlink( $tmpfname );
+        eZExecution::cleanExit();
+    }
 
     static function fetchListByUser( eZContentObjectAttribute $attribute, $question = null )
     {
@@ -187,7 +230,6 @@ class xrowQuestionnaireResult extends eZPersistentObject
             'session' => $http->sessionID() , 
             'question_id' => $question['id'] 
         ), null, null, false );
-    
     }
 
     static function fetchListByType( $attribute_id, $itemType, $asObject = true )
