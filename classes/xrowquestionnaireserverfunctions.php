@@ -145,7 +145,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
         
         $object = $attribute->object();
         self::initOverrides( $object );
-        
+        $tpl->setVariable( 'settings', $settings );
         $tpl->setVariable( 'number_of', 1 );
         $tpl->setVariable( 'count', (int) $questionCount );
         
@@ -173,7 +173,13 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
         {
         	$errors[] = ezpI18n::tr( 'xrowquestionnaire/view', 'Bitte wählen Sie eine Option!' );
         }
-
+        // Voting has not started
+        if ( isset( $content["settings"]["date_start"] ) and $content["settings"]["date_start"] > time() )
+        {
+            $tpl->setVariable( 'question', $content['questions'][0] ); //show the first question
+            $result['template'] = $tpl->fetch( 'design:questionnaire/notstarted.tpl' );
+            return $result;
+        }
         // Voting closed
         if ( isset( $content["persistent"]["closed"] ) and $content["persistent"]["closed"] == "on" )
         {
@@ -365,7 +371,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
             }
             $db->commit();
         }
-        $tpl->setVariable( 'settings', $settings );
+        
         $tpl->setVariable( 'question', $question );
         $tpl->setVariable( 'first', $first );
         $tpl->setVariable( 'last', $last );

@@ -65,8 +65,8 @@
             </select>
         </label>
         <label>
-             {'Start Datum'|i18n( 'xrowquestionnaire/datatype/edit' )} <input id="{$attribute_base}_xrowquestionnaire[{$attribute.id}][settings][date_start]" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][settings][date_start]" type="text" class="jquery-datepicker" placeholder="dd.mm.yyyy" {if is_set($attribute.content.settings.date_start)} value="{$attribute.content.settings.date_start}"{/if}/>
-
+             {'Start Datum'|i18n( 'xrowquestionnaire/datatype/edit' )} <input type="text" class="jquery-datepicker" placeholder="dd.mm.yyyy" value="" />
+             <input type="hidden" id="date-picker-alternate-date" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][settings][date_start]"  value="{if is_set($attribute.content.settings.date_start)}{$attribute.content.settings.date_start|mul(1000)}{/if}"/>
         </label>
         <label title="{"Sind nur sichtbar sobald die Ergebnisanzeige auf \"eigene\" steht."|i18n( 'xrowquestionnaire/datatype/edit' )}">
              {'Punktspannen'|i18n( 'xrowquestionnaire/datatype/edit' )}

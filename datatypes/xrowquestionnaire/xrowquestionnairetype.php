@@ -198,7 +198,14 @@ class xrowQuestionnaireType extends eZDataType
         {
             unset( $data['settings']['quiz'] );
         }
-        
+        if ( isset( $data['settings']['date_start'] ) and is_numeric( $data['settings']['date_start'] ) )
+        {
+           $data['settings']['date_start'] = $data['settings']['date_start'] / 1000;
+        }
+        else 
+        {
+            unset( $data['settings']['date_start'] );
+        }
         if ( isset( $dataold['persistent'] ) )
         {
             $data['persistent'] = $dataold['persistent'];

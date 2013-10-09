@@ -1,0 +1,1 @@
+<p>Umfrage oder Quiz hat noch nicht gestarted und started am {$attribute.content.settings.date_start|l10n( 'datetime' )}.</p>

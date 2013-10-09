@@ -10,6 +10,7 @@ FrontendCSSFileList[]=questionnaire.css
 
 [JavaScriptSettings]
 BackendJavaScriptList[]=jquery-ui-1.10.3.custom.min.js
+BackendJavaScriptList[]=questionnaire_backend.js
 BackendJavaScriptList[]=questionnaire.js
 FrontendJavaScriptList[]=ezjsc::jquery
 FrontendJavaScriptList[]=ezjsc::jqueryio
