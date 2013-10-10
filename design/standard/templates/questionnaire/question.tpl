@@ -2,12 +2,15 @@
 <form id="form_{$attribute.id}" method="post" action="">
 {if and( is_set($count), $count|ne(1) )}
     <p>Frage {$number_of} von {$count}</p>
-{/if}
+{/if} 
                 {if $question.object_relation}
+                <figure>
                     {attribute_view_gui attribute=fetch( 'content', 'node', hash( 'node_id', $question.object_relation ) ).data_map.image image_class=medium}
-                {/if}
+                    <figcaption>{$question.text|wash()}</figcaption>
+                </figure>
+                {else}
                 <h2>{$question.text|wash()}</h2>
-
+                {/if}
                     <ul>
                     {foreach $question.answers as $answer}
                         {if $answer.points|ne(0)}
@@ -19,7 +22,7 @@
                             {if $answer.object_relation}
                                 {attribute_view_gui attribute=fetch( 'content', 'node', hash( 'node_id', $answer.object_relation ) ).data_map.image image_class=small}
                             {/if}
-                            <p>
+                            
                                 <label>
                                 	{if is_set(ezini($question.answer_type, 'SelectMultiple', 'xrowquestionnaire.ini'))}
                                 	<input id="answer_{rand()}" type="checkbox" name="answer_id[]" value="{$answer.id}" {if $prev_answers|contains($answer.id)}checked="checked"{/if}/>
@@ -28,7 +31,6 @@
                                 	{/if} 
                                 	{$answer.text|wash()}
                                 	</label>
-                              </p>
                           </li>
                     {/foreach}
                     </ul>

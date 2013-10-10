@@ -1,3 +1,6 @@
-#questionnaire-optin {
+label input[type=checkbox] {
 	display: inline;
+}
+label {
+	 vertical-align: middle;
 }
