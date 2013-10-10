@@ -5,8 +5,8 @@ DesignExtensions[]=xrowquestionnaire
 
 [StylesheetSettings]
 BackendCSSFileList[]=jquery-ui-1.10.3.custom.css
-BackendCSSFileList[]=questionnaire.css
-FrontendCSSFileList[]=questionnaire.css
+BackendCSSFileList[]=questionnaire_backend.css
+FrontendCSSFileList[]=questionnaire_frontend.css
 
 [JavaScriptSettings]
 BackendJavaScriptList[]=jquery-ui-1.10.3.custom.min.js

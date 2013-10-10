@@ -117,7 +117,16 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
         $res = eZTemplateDesignResource::instance();
         $res->setKeys( $keyArray );
     }
-
+    public static function optin()
+    {
+        xrowQuestionnaireOptin::optin( eZUser::currentUser() );
+        return "";
+    }
+    public static function optout()
+    {
+        xrowQuestionnaireOptin::optout( eZUser::currentUser() );
+        return "";
+    }
     public static function questionnaire()
     {
         $http = eZHTTPTool::instance();

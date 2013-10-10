@@ -42,6 +42,19 @@
                 }
             });
         },
+        optin : function() {
+            var id = this.attr('id').split("_", 2)[1];
+            var data = this.serialize();
+            jQuery.ez('xrowquestionnaire_page::optin', data, function(
+                    result) {
+                if (result.content.error == true) {
+                    jQuery('#error-msg-' + id).html(result.content.template);
+                }
+                
+                jQuery('#questionnaire-optin').attr("disabled", true);
+                
+            });
+        },
         again : function() {
             var id = this.attr('id').split("_", 2)[1];
             var data = this.serialize();

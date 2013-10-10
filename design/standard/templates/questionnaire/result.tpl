@@ -22,7 +22,7 @@
 	    	{foreach $question.answers as $answer}
 	            <li>{$answer.text}
 	            {if $results.settings.quiz}
-	                {if and($answer.correct,$answer.total))}
+	                {if and($answer.correct,$answer.total)}
 	                <span class="correct" title="{'Von Ihnen gewählt und richtig.'|i18n( 'xrowquestionnaire/datatype/view' )}">{'gewählt und richtig'|i18n( 'xrowquestionnaire/datatype/view' )}</span>
 	                {elseif $answer.total}
 	                <span class="false" title="{'Von Ihnen gewählt und falsch.'|i18n( 'xrowquestionnaire/datatype/view' )}">{'gewählt und falsch'|i18n( 'xrowquestionnaire/datatype/view' )}</span>

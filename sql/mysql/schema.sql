@@ -11,3 +11,10 @@ CREATE TABLE `ezx_xrowquestionnaire_results` (
   `score` float DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `ezx_xrowquestionnaire_optin` (
+  `user_id` int(11) NOT NULL,
+  `created` int(11) NOT NULL,
+  `random` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
