@@ -1,6 +1,12 @@
 <div id="question_{$question.id}" class="questionnaire question {$question.layout}">
 
-<p>Vielen Dank für Ihre Teilnahme.</p>
+{if and(is_set($attribute.object.data_map.result_text), $attribute.object.data_map.result_text.has_content)}
+    <div class="attribute-result-text">
+        {attribute_view_gui attribute=$attribute.object.data_map.result_text}
+    </div>
+{else}
+    <p>Vielen Dank für Ihre Teilnahme.</p>
+{/if}
 
 <form id="form_{$attribute.id}" method="post" action="">
 
