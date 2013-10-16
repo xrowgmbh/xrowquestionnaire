@@ -95,8 +95,13 @@ class xrowQuestionnaireType extends eZDataType
      */
     function storeObjectAttribute( $contentObjectAttribute )
     {
-        $xml = ArrayToXML::toXML( $contentObjectAttribute->content() );
+        $content = $contentObjectAttribute->content();
+        $xml = ArrayToXML::toXML( $content );
         $contentObjectAttribute->setAttribute( 'data_text', $xml );
+        if( isset( $content['settings']['date_start'] ) )
+        {
+            $contentObjectAttribute->setAttribute( 'data_int', $content['settings']['date_start'] );
+        }
         
         return true;
     }
@@ -231,15 +236,22 @@ class xrowQuestionnaireType extends eZDataType
             return false;
         }
     }
-
+    function isInformationCollector()
+    {
+        return false;
+    }
     function isIndexable()
     {
-        return true;
+        return false;
     }
 
     function sortKeyType()
     {
-        return '';
+        return 'int';
+    }
+    function sortKey( $contentObjectAttribute )
+    {
+        return $contentObjectAttribute->attribute( 'data_int' );
     }
 }
 

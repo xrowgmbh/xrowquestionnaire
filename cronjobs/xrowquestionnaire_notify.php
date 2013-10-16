@@ -23,6 +23,7 @@ $list = eZFunctionHandler::execute( 'content', 'tree', array(
     'class_filter_array' => array( 
         'questionnaire' 
     ) , 
+    'attribute_filter' => array( 'and', array( 'questionnaire/questionnaire', '>=', $lastrun->value ), array( 'questionnaire/questionnaire', '<', time() ) ),
     'limitation' => array() 
 ) );
 
