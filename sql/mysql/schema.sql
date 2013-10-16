@@ -14,7 +14,8 @@ CREATE TABLE `ezx_xrowquestionnaire_results` (
 
 CREATE TABLE `ezx_xrowquestionnaire_optin` (
   `user_id` int(11) NOT NULL,
-  `created` int(11) NOT NULL,
-  `random` varchar(255) DEFAULT NULL,
+  `optin` int(11) NOT NULL,
+  `optout` int(11) DEFAULT NULL,
+  `random` varchar(255) NOT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8

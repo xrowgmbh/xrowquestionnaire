@@ -8,5 +8,5 @@
         Bildverknüpfung:<br /> <input type="text" id="xrowquestionnaire_{$contentobject_id}_{$version}_images_{$attrID}_{literal}{$id}{/literal}_{literal}{$position}{/literal}_relation" name="{$attribute_base}_xrowquestionnaire[{$attrID}][questions][{literal}{$id}{/literal}][answers][{literal}{$position}{/literal}][object_relation]" value="" />
         <button class="button uploadImage" type="button" name="{$attribute_base}_xrowquestionnaire[{$attrID}][questions][{literal}{$id}{/literal}][answers][{literal}{$position}{/literal}][image]" id="xrowquestionnaire_{$contentobject_id}_{$version}_images_{$attrID}_{literal}{$id}{/literal}_{literal}{$position}{/literal}">Bild hinzufügen</button><br />
         <input type="hidden" id="xrowquestionnaire_{$contentobject_id}_{$version}_images_{$attrID}_{literal}{$id}_{$position}{/literal}_url" value={concat( 'questionnaire/upload/', $contentobject_id, '/', $version, '/images' )|ezurl()} />
-        <button class="button" type="button" onclick="removeAnswer({literal}{$id},{$position}{/literal});">Antwort entfernen</button>
+        <button class="button" type="button" onclick="removeAnswer( $(this).parent(), {literal}{$id},{$position}{/literal});">Antwort entfernen</button>
     </li>

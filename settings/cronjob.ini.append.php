@@ -1,9 +1,9 @@
 <?php /* #?ini charset="utf-8"?
 
 [CronjobSettings]
-ExtensionDirectories[]=xrowquestionaire
+ExtensionDirectories[]=xrowquestionnaire
 
-[CronjobPart-xrowquestionaire-notify]
-Scripts[]=xrowquestionaire_notify.php
+[CronjobPart-xrowquestionnaire-notify]
+Scripts[]=xrowquestionnaire_notify.php
 
 */ ?>

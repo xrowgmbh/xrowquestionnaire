@@ -5,22 +5,25 @@
 jQuery(document)
 		.ready(
 				(function() {
+					
 					if (jQuery("input.jquery-datepicker").length) {
+						
 						jQuery.datepicker.setDefaults(jQuery.datepicker.regional["de"]);
-
+						
 						jQuery("input.jquery-datepicker").datepicker({
 							minDate : new Date(),
 							altField : "#date-picker-alternate-date",
 							altFormat : '@', // Gives a timestamp dateformat
 							dateFormat : "dd.mm.yy"
 						});
+						
 						if( jQuery("#date-picker-alternate-date").val() ){
 							var startdate = new Date( parseInt( jQuery("#date-picker-alternate-date").val(), 10 ) );
 							$("input.jquery-datepicker").datepicker('setDate', startdate );
-							$("input.jquery-datepicker").datepicker('defaultDate', startdate );
 						}
-
+						
 					}
+					
 					if (jQuery('#tabsView').length) {
 						jQuery("#tabsView").sortable({
 							stop : function(event, ui) {
@@ -233,8 +236,8 @@ function removeOnChange(id) {
 	jQuery('.new_set_' + id).removeAttr('onchange');
 }
 
-function remove_question(id) {
-	jQuery('#question_' + id).remove();
+function remove_question( node, id) {
+	node.remove();
 	updatePosition('questions');
 }
 
@@ -242,7 +245,8 @@ function remove_range(node) {
 	jQuery('.' + node).remove();
 }
 
-function removeAnswer(node, position) {
-	jQuery('#id_' + node + '_' + position).remove();
-	updatePosition('answers', node);
+function removeAnswer(node, position)
+{	
+	node.remove();
+	updatePosition('answers', position);
 }

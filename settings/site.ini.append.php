@@ -6,5 +6,7 @@ ExtensionAutoloadPath[]=xrowquestionnaire
 [RegionalSettings]
 TranslationExtensions[]=xrowquestionnaire
 
+[RoleSettings]
+PolicyOmitList[]=xrowquestionnaire/optout
 
 */ ?>

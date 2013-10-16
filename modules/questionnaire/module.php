@@ -17,7 +17,11 @@ $ViewList['upload'] = array(
     'script' => 'upload.php',
     'params' => array( 'ObjectID', 'ObjectVersion', 'ContentType', 'AttributeID', 'PositionID' )
 );
-
+$ViewList['optout'] = array(
+'ui_context' => 'content',
+'script' => 'optout.php',
+'params' => array( 'hash' )
+);
 $FunctionList = array();
 $FunctionList['relations'] = array();
 $FunctionList['editor'] = array();

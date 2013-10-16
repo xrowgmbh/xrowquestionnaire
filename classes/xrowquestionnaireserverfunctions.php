@@ -119,12 +119,12 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
     }
     public static function optin()
     {
-        xrowQuestionnaireOptin::optin( eZUser::currentUser() );
+        xrowQuestionnaireOptin::optinUser( eZUser::currentUser() );
         return "";
     }
     public static function optout()
     {
-        xrowQuestionnaireOptin::optout( eZUser::currentUser() );
+        xrowQuestionnaireOptin::optoutUser( eZUser::currentUser() );
         return "";
     }
     public static function questionnaire()

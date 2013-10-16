@@ -33,7 +33,7 @@
             <br />
             <button class="button uploadImage" type="button" name="{$attribute_base}_xrowquestionnaire[{$attrID}][questions][{literal}{$id}{/literal}][image]" id="xrowquestionnaire_{$contentobject_id}_{$version}_images_{$attrID}_{literal}{$id}{/literal}">Bild hinzufügen</button>
             <input type="hidden" id="xrowquestionnaire_{$contentobject_id}_{$version}_images_{$attrID}_{literal}{$id}{/literal}_url" value={concat( 'questionnaire/upload/', $contentobject_id, '/', $version, '/images' )|ezurl()} />
-            <button class="button" type="button" onclick="remove_question('{literal}{$id}{/literal}');">Frage entfernen</button>
+            <button class="button" type="button" onclick="remove_question( $(this).parent().parent(), '{literal}{$id}{/literal}');">Frage entfernen</button>
         </div>
         <div id="tabs-2_{$id}">
             <ul id="sortable_{literal}{$id}{/literal}" class="ui-helper-reset">
