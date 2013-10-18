@@ -11,13 +11,12 @@
 				{attribute_view_gui attribute=$node.object.data_map.description}
 			</div>
 		{/if}
+        
+        {attribute_view_gui attribute=$node.object.data_map.questionnaire}
 	</div>
 	
 	<div class="float-break"></div>
-	
-	
-	{attribute_view_gui attribute=$node.object.data_map.questionnaire}
-	
+
 </div>
 	
 </div></div></div>
