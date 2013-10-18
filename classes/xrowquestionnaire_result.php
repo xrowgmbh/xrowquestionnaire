@@ -180,16 +180,24 @@ class xrowQuestionnaireResult extends eZPersistentObject
         $return = array_unique( $return );
         return $return;
     }
+    static function fetchScore( eZContentObjectAttribute $attribute, eZUser $user )
+    {
+        $users = eZPersistentObject::fetchObjectList( self::definition(), null, array(
+        'attribute_id' => $attribute->attribute( 'id' ), 'user_id' => $user->attribute( 'contentobject_id' )
+        ), null, null, false, array( 'user_id' ), array( "sum( score ) as total" ) );
+        $total = isset( $users[0] ) ? $users[0]['total'] : 0;
+        return $total;
+    }
     static function fetchParticipants( eZContentObjectAttribute $attribute )
     {
-        $users = array();
-        $list = eZPersistentObject::fetchObjectList( self::definition(), null, array(
+
+        $users = eZPersistentObject::fetchObjectList( self::definition(), null, array(
         'attribute_id' => $attribute->attribute( 'id' )
-        ), null, null, true, array( 'user_id' ) );
-        
-        foreach ( $list as $fields )
+        ), null, null, false, array( 'user_id' ), array( "sum( score ) as total" ) );
+
+        if ( !$users )
         {
-            $users[] = eZUser::fetch( $fields->attribute( "user_id" ) );
+        	return array();
         }
         return $users;
     }
@@ -199,15 +207,16 @@ class xrowQuestionnaireResult extends eZPersistentObject
         $list = self::fetchParticipants( $attribute );
         
         $tmpfname = tempnam( eZSys::cacheDirectory(), "csv_" );
-        $head = array("contentibject_id", "name", "email", "url" );
+        $head = array("contentibject_id", "name", "email", "score", "url" );
         $fp = fopen( $tmpfname, 'w' );
         fprintf( $fp, chr( 0xEF ) . chr( 0xBB ) . chr( 0xBF ) );
         
         fputcsv( $fp, $head, ";" );
         
-        foreach ( $list as $user )
+        foreach ( $list as $rows )
         {
-            $row = array( $user->attribute( "contentobject_id" ), $user->attribute('contentobject')->attribute('name'),$user->attribute('email'), "http://" . eZSys::hostname() . "/content/view/full/" . $user->attribute('contentobject')->attribute('main_node_id') );
+            $user = eZUser::fetch( $rows["user_id"] );
+            $row = array( $user->attribute( "contentobject_id" ), $user->attribute('contentobject')->attribute('name'),$user->attribute('email'), $rows['total'], "http://" . eZSys::hostname() . "/content/view/full/" . $user->attribute('contentobject')->attribute('main_node_id') );
             fputcsv( $fp, $row, ";" );
         }
         
@@ -219,7 +228,7 @@ class xrowQuestionnaireResult extends eZPersistentObject
         unlink( $tmpfname );
         eZExecution::cleanExit();
     }
-
+    
     static function fetchListByUser( eZContentObjectAttribute $attribute, $question = null )
     {
         $user = eZUser::currentUser();
@@ -240,7 +249,7 @@ class xrowQuestionnaireResult extends eZPersistentObject
         ), null, null, $asObject );
     }
 
-    static function hasData( eZContentObjectAttribute $attribute )
+    static function &hasData( eZContentObjectAttribute $attribute )
     {
         $db = eZDB::instance();
         $sql = "SELECT * FROM ezx_xrowquestionnaire_results WHERE attribute_id = " . (int) $attribute->attribute('id') . " LIMIT 0,1;";
@@ -251,7 +260,6 @@ class xrowQuestionnaireResult extends eZPersistentObject
             return true;
         }
         return false;
-    
     }
 
     static function canWin( eZContentObjectAttribute $attribute )
@@ -327,7 +335,7 @@ class xrowQuestionnaireResult extends eZPersistentObject
         $sql .= join( ' UNION ', $qparts );
         $sql .= ") as result GROUP BY result.user_id HAVING counter = " . count( $data['questions'] ) . " ORDER BY RAND() LIMIT 0,1;";
         $result = $db->arrayQuery( $sql );
-        
+
         if ( isset( $result[0]['user_id'] ) && eZUser::anonymousId() !== $result[0]['user_id'] )
         {
             return $result[0]['user_id'];

@@ -52,7 +52,7 @@
                 }
                 
                 jQuery('#questionnaire-optin').attr("disabled", true);
-                
+                jQuery('#questionnaire-optin').siblings( 'span' ).html( jQuery('#questionnaire-optin').data( 'text-active' ) );
             });
         },
         again : function() {

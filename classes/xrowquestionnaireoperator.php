@@ -8,6 +8,7 @@ class xrowQuestionnaireOperator
         return array( 
             'questionnaire_sort' , 
             'questionnaire_has_data' , 
+            'questionnaire_score' ,
             'questionnaire_can_win' 
         );
     }
@@ -40,9 +41,21 @@ class xrowQuestionnaireOperator
             'questionnaire_has_data' => array( 
                 'attribute_id' => array( 
                     'type' => 'int' , 
-                    'required' => true , 
+                    'required' => true, 
                     'default' => null 
                 ) 
+            ) , 
+            'questionnaire_score' => array( 
+                                'attribute_id' => array( 
+                    'type' => 'int' , 
+                    'required' => true , 
+                    'default' => null 
+                )  , 
+                'user_id' => array( 
+                    'type' => 'int' , 
+                    'required' => true , 
+                    'default' => 'nul' 
+                )
             ) , 
             'questionnaire_can_win' => array( 
                 'attribute_id' => array( 
@@ -140,20 +153,38 @@ class xrowQuestionnaireOperator
                 {
                     if ( isset( $namedParameters['attribute_id'] ) )
                     {
-                        
                         $attributes = eZPersistentObject::fetchObjectList( eZContentObjectAttribute::definition(), null, array( 
                             "id" => (int) $namedParameters['attribute_id'] 
                         ) );
                         
                         $object = $attributes[0]->attribute( 'object' );
                         $attribute = eZContentObjectAttribute::fetch( (int) $namedParameters['attribute_id'], $object->attribute( 'current_version' ) );
-                        $operatorValue = xrowQuestionnaireResult::hasData( $attribute );
+                        $return = xrowQuestionnaireResult::hasData( $attribute );
+                        $operatorValue = $return;
                     }
                     else
                     {
                         $operatorValue = false;
                     }
-                }
+
+                }break;
+                case 'questionnaire_score':
+                    {
+                        if ( isset( $namedParameters['attribute_id'] ) && isset( $namedParameters['user_id'] ) )
+                        {
+                            $attributes = eZPersistentObject::fetchObjectList( eZContentObjectAttribute::definition(), null, array(
+                            "id" => (int) $namedParameters['attribute_id']
+                            ) );
+                
+                            $object = $attributes[0]->attribute( 'object' );
+                            $attribute = eZContentObjectAttribute::fetch( (int) $namedParameters['attribute_id'], $object->attribute( 'current_version' ) );
+                            $operatorValue = xrowQuestionnaireResult::fetchScore( $attribute, eZUser::fetch( $namedParameters['user_id'] ) );
+                        }
+                        else
+                        {
+                            $operatorValue = false;
+                        }
+                    }
                 break;
         }
     }

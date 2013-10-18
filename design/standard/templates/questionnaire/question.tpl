@@ -9,7 +9,7 @@
 <div id="question_{$question.id}" class="question {$question.layout} {$question.answer_type}">
     <form id="form_{$attribute.id}" method="post" action="">
         {if and( is_set($count), $count|ne(1) )}
-            <p>Frage {$number_of} von {$count}/p>
+            <p>Frage {$number_of} von {$count}</p>
         {/if}
         {if $question.object_relation}
         <figure>

@@ -2,8 +2,7 @@
     <h3 class="left class-description">{'Administrative Aktionen'|i18n( 'xrowquestionnaire/datatype/edit' )}</h3>
     <div class="break"></div>
     <p>
-        {def $has_data=questionnaire_has_data( $attribute.id )}
-        {if or(is_set($attribute.content.persistent.winner), is_set($attribute.content.settings.lottery)|not(), questionnaire_can_win( $attribute.id )|not() )}
+        {if or(is_set($attribute.content.settings.lottery)|not(), questionnaire_can_win( $attribute.id )|not() )}
             <button type="button" disabled="disabled">{'Gewinner ermitteln'|i18n( 'xrowquestionnaire/datatype/edit' )}</button>
         {else}
             <input class="button" type="submit" name="CustomActionButton[{$attribute.id}_winner]" value="{'Gewinner ermitteln'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
@@ -18,15 +17,21 @@
 		{else}
 			<button type="button" disabled="disabled">{'Ergebnisse zurücksetzen'|i18n( 'xrowquestionnaire/datatype/edit' )}</button>
 		{/if}
+		
 		{if questionnaire_has_data( $attribute.id )}
             <input class="button" type="submit" name="CustomActionButton[{$attribute.id}_download]" value="{'Teilnehmerliste runterladen'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
 		{else}
 			<button type="button" disabled="disabled">{'Teilnehmerliste runterladen'|i18n( 'xrowquestionnaire/datatype/edit' )}</button>
 		{/if}
     </p>
+
     {if is_set($attribute.content.persistent.winner)}
-        <p>{'Gewinner'|i18n( 'xrowquestionnaire/datatype/edit' )}</p>
-        {content_view_gui content_object=fetch( 'content', 'object', hash( 'object_id', $attribute.content.persistent.winner ) ) view='line'}
+        <table>
+        <tr><th>{'Gewinner'|i18n( 'xrowquestionnaire/datatype/edit' )}</th><th>{'Score'|i18n( 'xrowquestionnaire/datatype/edit' )}</th><td>
+        {foreach $attribute.content.persistent.winner as $winner }
+        <tr><td>{content_view_gui content_object=fetch( 'content', 'object', hash( 'object_id', $winner ) ) view='line'}</td><td>{questionnaire_score( $attribute.id, $winner )}</td></tr>
+        {/foreach}
+        </table>
     {/if}
 </div>
 <div class="context-information">

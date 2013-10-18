@@ -9,6 +9,7 @@ CREATE TABLE `ezx_xrowquestionnaire_results` (
   `session` varchar(255) DEFAULT NULL,
   `contentobject_id` int(11) NOT NULL,
   `score` float DEFAULT NULL,
+  `correct` float DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 

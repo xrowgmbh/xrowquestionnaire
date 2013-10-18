@@ -49,7 +49,7 @@
         {if $points|eq(true)}
             <p>{'Ihre Gesamtpunktzahl'|i18n( 'xrowquestionnaire/datatype/view' )}: {$results.total_score}</p>
             {if is_set($text)}
-                <h3>{'Wir finden das war'|i18n( 'xrowquestionnaire/datatype/view' )}</h3>
+                <h3>{'Ihre Auswertung'|i18n( 'xrowquestionnaire/datatype/view' )}</h3>
                 <p>{$text}</p>
             {/if}
         {/if}

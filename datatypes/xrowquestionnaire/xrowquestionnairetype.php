@@ -135,11 +135,16 @@ class xrowQuestionnaireType extends eZDataType
             case "winner":
                 $content = $contentObjectAttribute->attribute( 'content' );
                 $userid = xrowQuestionnaireResult::selectWinner( $contentObjectAttribute );
+                if ( !isset( $content['persistent']['winner'] ) )
+                {
+                    $content['persistent']['winner'] = array();
+                }
                 if ( $userid )
                 {
-                    $content['persistent']['winner'] = $userid;
-                    $content['persistent']['closed'] = 'on';
+                    $content['persistent']['winner'][] = $userid;
+                    $content['persistent']['winner'] = array_unique( $content['persistent']['winner'] );
                     $contentObjectAttribute->setContent( $content );
+                    
                 }
                 break;
             case "close":
@@ -153,11 +158,15 @@ class xrowQuestionnaireType extends eZDataType
                 {
                     unset( $content['persistent']['winner'] );
                 }
-                unset( $content['persistent']['closed'] );
+                
                 $contentObjectAttribute->setContent( $content );
                 xrowQuestionnaireResult::cleanupByAttributeID( $contentObjectAttribute->attribute( 'id' ) );
                 break;
             case "reset":
+                if ( $content['persistent']['winner'] )
+                {
+                    unset( $content['persistent']['winner'] );
+                }
                 xrowQuestionnaireResult::cleanupByAttributeID( $contentObjectAttribute->attribute( 'id' ) );
                 break;
             case "download":

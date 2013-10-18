@@ -178,7 +178,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
             $result['template'] = $tpl->fetch( 'design:questionnaire/captcha.tpl' );
             return $result;
         }
-        if ( isset( $data['submit'] ) && !isset( $data['answer_id'] ) && (int) $data['question_id'] )
+        if ( isset( $data['submit'] ) && !isset( $data['answer_id'] ) && isset( $data['question_id'] ) && (int) $data['question_id'] )
         {
         	$errors[] = ezpI18n::tr( 'xrowquestionnaire/view', 'Bitte wählen Sie eine Option!' );
         }
@@ -249,7 +249,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
         }
         
         //submit || next || prev
-        if ( (int) $data['answer_id'] && ( isset( $data['submit'] ) || isset( $data['next'] ) ) || isset( $data['prev'] ) )
+        if ( isset( $data['answer_id'] ) && (int) $data['answer_id'] && ( isset( $data['submit'] ) || isset( $data['next'] ) ) || isset( $data['prev'] ) )
         {
             for ( $i = 0; count( $content['questions'] ) > $i; $i ++ )
             {
@@ -287,7 +287,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
         {
             $i = 0;
             $ids = xrowQuestionnaireResult::fetchCompletedQuestionIDList( $attribute );
-            if ( $content['questions']['settings']['play_once'] != 'on' )
+            if ( isset( $content['questions']['settings']['play_once'] ) && $content['questions']['settings']['play_once'] != 'on' )
             {
                 for ( $i = 0; count( $content['questions'] ) > $i; $i ++ )
                 {
@@ -327,7 +327,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
             }
             $tpl->setVariable( 'prev_answers', $val );
         }
-        $tpl->setVariable( 'prev_answers', $val );
+
         $tpl->setVariable( 'prev_question', $prev_question );
         
         $first = false;
@@ -408,7 +408,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
             
             $result['template'] = $tpl->fetch( 'design:questionnaire/question_result.tpl' );
         }
-        elseif ( isset( $last_question ) && ( $last_question['id'] == (int) $data['question_id'] || $firstVisit ) )
+        elseif ( isset( $last_question ) && ( $last_question['id'] == (int) $data['question_id'] && !$firstVisit ) )
         {
             $result['template'] = $tpl->fetch( 'design:questionnaire/completed.tpl' );
         }

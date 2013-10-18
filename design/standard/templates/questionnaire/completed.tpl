@@ -10,12 +10,13 @@
 
 <form id="form_{$attribute.id}" method="post" action="">
 
-{if fetch( 'user', 'current_user' ).is_logged_in}
-    <label for="questionnaire-optin" title="{'Ich will über weitere Gewinnspiele benachrichtigt werden.'|i18n( 'xrowquestionnaire/datatype/edit' )}">
+{if and(fetch( 'user', 'current_user' ).is_logged_in, $attribute.content.settings.date_start|gt(0) )}
+    <label for="questionnaire-optin" title="{'Ich will über weitere Aktionen benachrichtigt werden.'|i18n( 'xrowquestionnaire/datatype/edit' )}">
         <input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'optin' )" 
-	     id="questionnaire-optin" type="checkbox" class="opt-in" name="questionnaire-optin" value="1" /> {'Ich will über weitere Gewinnspiele benachrichtigt werden.'|i18n( 'xrowquestionnaire/datatype/edit' )}
+	     id="questionnaire-optin" type="checkbox" class="opt-in" name="questionnaire-optin" value="1" data-text-active="Ich werde über weitere Aktionen benachrichtigt." /> <span>{'Ich will über weitere Aktionen benachrichtigt werden.'|i18n( 'xrowquestionnaire/datatype/edit' )}</span>
 	</label>
 {/if}
+
 
 {if $attribute.content.settings.play_once|ne('on')}
 	<input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'again' );" id="again_button{$attribute.id}" type="button" class="again_button" name="show_result" value="{'Wiederholen'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'Umfrage Wiederholen'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
