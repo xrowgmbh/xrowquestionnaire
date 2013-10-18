@@ -1,9 +1,9 @@
 {def $questionfullalias = "medium"
      $questionitemalias = "small"}
-{if is_set(ezini("UsedImageAliases", 'QuestionItem', 'xrowquestionnaire.ini'))}
+{if ezini_hasvariable("UsedImageAliases", 'QuestionItem', 'xrowquestionnaire.ini')}
     {set $questionitemalias = ezini("UsedImageAliases", 'QuestionItem', 'xrowquestionnaire.ini')}
 {/if}
-{if is_set(ezini("UsedImageAliases", 'QuestionFull', 'xrowquestionnaire.ini'))}
+{if ezini_hasvariable("UsedImageAliases", 'QuestionFull', 'xrowquestionnaire.ini')}
     {set $questionfullalias = ezini("UsedImageAliases", 'QuestionFull', 'xrowquestionnaire.ini')}
 {/if}
 <div id="question_{$question.id}" class="question {$question.layout} {$question.answer_type}">
