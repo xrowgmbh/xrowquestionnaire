@@ -249,7 +249,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
         }
         
         //submit || next || prev
-        if ( isset( $data['answer_id'] ) && (int) $data['answer_id'] && ( isset( $data['submit'] ) || isset( $data['next'] ) ) || isset( $data['prev'] ) )
+        if ( ( isset( $data['answer_id'] ) && (int) $data['answer_id'] &&  isset( $data['submit'] ) ) || isset( $data['next'] ) || isset( $data['prev'] ) )
         {
             for ( $i = 0; count( $content['questions'] ) > $i; $i ++ )
             {
