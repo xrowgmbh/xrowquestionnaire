@@ -7,7 +7,6 @@ AvailableAnswerTypes[]=multiple
 AvailableAnswerTypes[]=grades1to6
 AvailableAnswerTypes[]=grades1to10
 AvailableAnswerTypes[]=grades
-AvailableAnswerTypes[]=freestyle
 
 [single]
 IsGrade=disabled
@@ -56,13 +55,6 @@ AnswerText[]=befriedigend
 AnswerText[]=ausreichend
 AnswerText[]=mangelhaft
 AnswerText[]=ungenügend
-
-[freestyle]
-IsGrade=enabled
-Description=Noten anpassbar
-AnswerText[]=erste Note
-AnswerText[]=zweite Note
-AnswerText[]=dritte Note
 
 [LayoutTypes]
 IsGrade=enabled
