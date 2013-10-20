@@ -249,7 +249,7 @@ class xrowQuestionnaireResult extends eZPersistentObject
         ), null, null, $asObject );
     }
 
-    static function &hasData( eZContentObjectAttribute $attribute )
+    static function hasData( eZContentObjectAttribute $attribute )
     {
         $db = eZDB::instance();
         $sql = "SELECT * FROM ezx_xrowquestionnaire_results WHERE attribute_id = " . (int) $attribute->attribute('id') . " LIMIT 0,1;";

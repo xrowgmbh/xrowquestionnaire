@@ -164,6 +164,7 @@ class xrowQuestionnaireType extends eZDataType
                 {
                     unset( $content['persistent']['winner'] );
                 }
+                $contentObjectAttribute->setContent( $content );
                 xrowQuestionnaireResult::cleanupByAttributeID( $contentObjectAttribute->attribute( 'id' ) );
                 break;
             case "download":
