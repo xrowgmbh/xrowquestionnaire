@@ -66,6 +66,10 @@ class eZEMailType extends eZWorkflowEventType
         $parameters = $process->attribute( 'parameter_list' );
         $userID = $parameters['user_id'];
         $user = eZUser::fetch($userID);
+        if ( !in_array( $parameters['object_id'], $event->attribute("approve_groups") ) )
+        {
+            return eZWorkflowType::STATUS_ACCEPTED;
+        }
 
         if ( !$user )
         {
@@ -93,6 +97,11 @@ class eZEMailType extends eZWorkflowEventType
 
         $mail->setReceiver( $user->attribute( 'email' ), $user->attribute( 'contentobject' )->attribute( 'name' ) );
         $mail->setSubject( $subject );
+        foreach( $event->attribute("approve_users") as $approverID )
+        {
+            $approver = eZUser::fetch($approverID);
+            $mail->addBcc( $approver->attribute( 'email' ), $approver->attribute( 'contentobject' )->attribute( 'name' ) );
+        }
         
         // fetch
         $sectionID = $object->attribute( 'section_id' );

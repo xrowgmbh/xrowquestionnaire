@@ -1,4 +1,5 @@
 Guten Tag {$user.contentobject.name},
+
 Sie haben das Quiz {$object.name} auf unserer Seite http://{$hostname} erfolgreich bestanden.
 
 Damit nehmen Sie automatisch an unserer Verlosung teil. Der Gewinner wird von uns schriftlich benachrichtigt. Der Rechtsweg ist ausgeschlossen.
