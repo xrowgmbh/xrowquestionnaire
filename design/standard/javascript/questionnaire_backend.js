@@ -16,6 +16,12 @@ jQuery(document)
 							altFormat : '@', // Gives a timestamp dateformat
 							dateFormat : "dd.mm.yy"
 						});
+						jQuery('input.jquery-datepicker').change(function() { 
+							if ( !jQuery(this).val() )
+							{
+								jQuery(this).siblings( 'input.xrowquestionnaire-alternate-date' ).val( '' );
+							}
+						});
 						
 						if( jQuery("#date-picker-alternate-date").val() ){
 							var startdate = new Date( parseInt( jQuery("#date-picker-alternate-date").val(), 10 ) );

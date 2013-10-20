@@ -5,7 +5,7 @@
         {if or(is_set($attribute.content.settings.lottery)|not(), questionnaire_can_win( $attribute.id )|not() )}
             <button type="button" disabled="disabled">{'Gewinner ermitteln'|i18n( 'xrowquestionnaire/datatype/edit' )}</button>
         {else}
-            <input class="button" type="submit" name="CustomActionButton[{$attribute.id}_winner]" value="{'Gewinner ermitteln'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
+            <input class="button" type="submit" name="CustomActionButton[{$attribute.id}_winner]" value="{'Gewinner ermitteln'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'Ermittelt Gewinner aus der Menge jender, die alle Fragen richtig beantwortet haben'|i18n( 'xrowquestionnaire/datatype/edit' )}"/>
         {/if}
         {if is_set($attribute.content.persistent.closed)}
             <input class="button" type="submit" name="CustomActionButton[{$attribute.id}_open]" value="{'Voting öffnen'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
@@ -71,7 +71,7 @@
         </label>
         <label>
              {'Start Datum'|i18n( 'xrowquestionnaire/datatype/edit' )} <input type="text" class="jquery-datepicker" placeholder="dd.mm.yyyy" value="" />
-             <input type="hidden" id="date-picker-alternate-date" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][settings][date_start]"  value="{if is_set($attribute.content.settings.date_start)}{$attribute.content.settings.date_start|mul(1000)}{/if}"/>
+             <input type="hidden" id="date-picker-alternate-date" class="xrowquestionnaire-alternate-date" name="{$attribute_base}_xrowquestionnaire[{$attribute.id}][settings][date_start]"  value="{if is_set($attribute.content.settings.date_start)}{$attribute.content.settings.date_start|mul(1000)}{/if}"/>
         </label>
         <label title='{"Sind nur sichtbar sobald die Ergebnisanzeige auf "eigene" steht."|i18n( 'xrowquestionnaire/datatype/edit' )}'>
              {'Punktspannen'|i18n( 'xrowquestionnaire/datatype/edit' )}
