@@ -19,7 +19,7 @@
 		{/if}
 		
 		{if questionnaire_has_data( $attribute.id )}
-            <input class="button" type="submit" name="CustomActionButton[{$attribute.id}_download]" value="{'Teilnehmerliste runterladen'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
+            <input class="button" type="submit" name="CustomActionButton[{$attribute.id}_download]" value="{'Teilnehmerliste herunterladen'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
 		{else}
 			<button type="button" disabled="disabled">{'Teilnehmerliste runterladen'|i18n( 'xrowquestionnaire/datatype/edit' )}</button>
 		{/if}

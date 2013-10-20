@@ -160,6 +160,7 @@ class xrowQuestionnaireType extends eZDataType
                 $contentObjectAttribute->setContent( $content );
                 break;
             case "reset":
+                $content = $contentObjectAttribute->attribute( 'content' );
                 if ( $content['persistent']['winner'] )
                 {
                     unset( $content['persistent']['winner'] );
