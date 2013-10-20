@@ -89,6 +89,7 @@
     <div class="float-break"></div>
     <button class="button" onclick="addRange('{$attribute_base}','{$attribute.id}')" type="button">{'Punktspanne hinzufügen'|i18n( 'xrowquestionnaire/datatype/edit' )}</button>
     <h3 class="left class-description">{'Benötigte Userattribute'|i18n( 'xrowquestionnaire/datatype/edit' )}</h3>
+    <p><i>{"Beim Aktiveren dieser Option müssen sich die Teilnehmer einloggen."|i18n( 'xrowquestionnaire/datatype/edit' )}</i></p>
     <ul class="user-attributes">
     {def $class_attributes = fetch( 'class', 'attribute_list', hash( 'class_id', ezini('UserSettings', 'UserClassID' ) ) )}
     {foreach $class_attributes as $attr}
@@ -98,7 +99,6 @@
          </label></li>
     {/foreach}
     </ul>
-    <i>{"Beim Aktiveren dieser Option müssen sich die Teilnehmer einloggen."|i18n( 'xrowquestionnaire/datatype/edit' )}</i>
     {undef $class_attributes}
 </div>
 <div class="context-information">
