@@ -345,7 +345,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
         $tpl->setVariable( 'last', $last );
         $tpl->setVariable( 'number_of', $i + 1 );
         //store vote - delete vote
-        if ( isset( $data['answer_id'] ) and ( $data['answer_id'] || is_array( $data['answer_id'] ) ) )
+        if ( isset( $data['answer_id'] ) and ( $data['answer_id'] || is_array( $data['answer_id'] ) ) && isset( $data['submit'] ) )
         {
             xrowQuestionnaireFunctions::storeResult( $attribute, $data );
             if ( isset( $last_question ) and $last_question['id'] == (int) $data['question_id'] and isset( $data['answer_id'] ) )
