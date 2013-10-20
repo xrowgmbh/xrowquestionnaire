@@ -63,7 +63,7 @@ class xrowQuestionnaireOperator
                     'required' => true , 
                     'default' => null 
                 ) 
-            ) 
+            )
         );
     }
 

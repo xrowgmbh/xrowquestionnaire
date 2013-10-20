@@ -24,11 +24,10 @@ class xrowQuestionnaireType extends eZDataType
             if ( $contentObjectID != $originalContentObjectID )
             {
                 $data = $originalContentObjectAttribute->content();
-                $newQuestionID = floor( rand() * 2000 );
                 
                 foreach ( $data['questions'] as $index => $question )
                 {
-                    
+                    $newQuestionID = floor( rand() * 2000 );
                     $question['id'] = $newQuestionID;
                     
                     foreach ( $question['answers'] as $key => $answer )
@@ -154,13 +153,11 @@ class xrowQuestionnaireType extends eZDataType
                 break;
             case "open":
                 $content = $contentObjectAttribute->attribute( 'content' );
-                if ( $content['persistent']['winner'] )
+                if ( isset( $content['persistent']['closed'] ) )
                 {
-                    unset( $content['persistent']['winner'] );
-                }
-                
+                    unset( $content['persistent']['closed'] );
+                }         
                 $contentObjectAttribute->setContent( $content );
-                xrowQuestionnaireResult::cleanupByAttributeID( $contentObjectAttribute->attribute( 'id' ) );
                 break;
             case "reset":
                 if ( $content['persistent']['winner'] )

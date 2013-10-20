@@ -249,15 +249,11 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
         }
         
         //submit || next || prev
-        if ( ( isset( $data['answer_id'] ) && (int) $data['answer_id'] &&  isset( $data['submit'] ) ) || isset( $data['next'] ) || isset( $data['prev'] ) )
+        if ( ( isset( $data['question_id'] ) && isset( $data['submit'] ) ) || isset( $data['next'] ) || isset( $data['prev'] ) )
         {
             for ( $i = 0; count( $content['questions'] ) > $i; $i ++ )
             {
                 $question = $content['questions'][$i];
-                if ( $questionCount == $i + 1 )
-                {
-                    $last_question = $content['questions'][$i];
-                }
                 if ( isset( $content['questions'][$i + 1] ) and $content['questions'][$i + 1]['id'] == (int) $data['question_id'] and $data['prev'] == 'on' )
                 {
                     $question = $content['questions'][$i];
@@ -268,7 +264,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
                     break;
                 }
                 
-                if ( $question['id'] == (int) $data['question_id'] )
+                if ( $question['id'] == (int) $data['question_id'] && empty($errors) )
                 {
                     if ( $showQuestionResult )
                     {
@@ -279,6 +275,10 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
                         $i ++;
                         $question = $content['questions'][$i];
                     }
+                    break;
+                }elseif ( $question['id'] == (int) $data['question_id'] && !empty($errors) )
+                {
+                    $question = $content['questions'][$i];
                     break;
                 }
             }
@@ -296,24 +296,23 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
                         $question = $content['questions'][$i];
                         break;
                     }
-                    if ( $questionCount == $i + 1 )
-                    {
-                        $last_question = $content['questions'][$i];
-                    }
                 }
             }
             else
             {
                 $i = 0;
                 $question = $content['questions'][$i];
-                if ( $questionCount == $i + 1 )
-                {
-                    $last_question = $content['questions'][$i];
-                }
             }
-            
             $firstVisit = true;
         }
+        $last_question = $content['questions'][count( $content['questions'] ) - 1];
+        $first_question = $content['questions'][0];
+        
+        if ( ! empty( $errors ) && ! isset( $data['start'] ) )
+        {
+            $tpl->setVariable( 'errors', $errors );
+        }
+        
         $prev_question = false;
         $prev_answers = false;
         if ( isset( $content['questions'][$i - 1] ) and $i >= 0 )
@@ -339,12 +338,6 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
         if ( $content['questions'][- 1]['id'] == $question['id'] )
         {
             $last = true;
-        }
-        
-        if ( ! empty( $errors ) && ! isset( $data['start'] ) )
-        {
-            $question = ( $content['questions'][$i - 1] <= 0 ) ? $content['questions'][0] : $content['questions'][$i];
-            ( ! isset( $data['again'] ) ) ? $tpl->setVariable( 'errors', $errors ) : null;
         }
 
         //store vote - delete vote
@@ -408,7 +401,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
             
             $result['template'] = $tpl->fetch( 'design:questionnaire/question_result.tpl' );
         }
-        elseif ( isset( $last_question ) && ( $last_question['id'] == (int) $data['question_id'] && !$firstVisit ) )
+        elseif ( isset( $last_question ) && ( $last_question['id'] == (int) $data['question_id'] && !$firstVisit ) && empty($errors) )
         {
             $result['template'] = $tpl->fetch( 'design:questionnaire/completed.tpl' );
         }
