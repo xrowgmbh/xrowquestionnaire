@@ -247,7 +247,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
                 xrowQuestionnaireResult::removeAnswers( $attribute->ID, $questionremove['id'] );
             }
         }
-        
+        $completed = false;
         //submit || next || prev
         if ( ( isset( $data['question_id'] ) && isset( $data['submit'] ) ) || isset( $data['next'] ) || isset( $data['prev'] ) )
         {
@@ -340,13 +340,14 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
             $last = true;
         }
 
+        $tpl->setVariable( 'question', $question );
+        $tpl->setVariable( 'first', $first );
+        $tpl->setVariable( 'last', $last );
+        $tpl->setVariable( 'number_of', $i + 1 );
         //store vote - delete vote
         if ( isset( $data['answer_id'] ) and ( $data['answer_id'] || is_array( $data['answer_id'] ) ) )
         {
-            $db = eZDB::instance();
-            $db->begin();
             xrowQuestionnaireFunctions::storeResult( $attribute, $data );
-            
             if ( isset( $last_question ) and $last_question['id'] == (int) $data['question_id'] and isset( $data['answer_id'] ) )
             {
                 $operationResult = eZOperationHandler::execute( 'questionnaire', 'completed', array( 
@@ -370,14 +371,11 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
                         }
                         break;
                 }
+                $result['template'] = $tpl->fetch( 'design:questionnaire/completed.tpl' );
+                return $result;
             }
-            $db->commit();
+            
         }
-        
-        $tpl->setVariable( 'question', $question );
-        $tpl->setVariable( 'first', $first );
-        $tpl->setVariable( 'last', $last );
-        $tpl->setVariable( 'number_of', $i + 1 );
         
         if ( $showQuestionResult )
         {
@@ -400,10 +398,6 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
             $tpl->setVariable( 'correct_answers', $correct_answers );
             
             $result['template'] = $tpl->fetch( 'design:questionnaire/question_result.tpl' );
-        }
-        elseif ( isset( $last_question ) && ( $last_question['id'] == (int) $data['question_id'] && !$firstVisit ) && empty($errors) )
-        {
-            $result['template'] = $tpl->fetch( 'design:questionnaire/completed.tpl' );
         }
         else
         {
