@@ -66,7 +66,7 @@
         {/foreach}
     {/if}
     <form id="form_{$attribute.id}" method="post" action="">
-        {if $attribute.content.settings.play_once|ne('on')}
+        {if $attribute.content.settings.play_once|not()}
             <input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'again' );" id="again_button{$attribute.id}" type="button" class="again_button" name="show_result" value="{'Wiederholen'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'Umfrage Wiederholen'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
         {/if}
             <input type="hidden" name="attribute_id" value="{$attribute.id}" />

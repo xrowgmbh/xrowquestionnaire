@@ -148,7 +148,7 @@ class xrowQuestionnaireType extends eZDataType
                 break;
             case "close":
                 $content = $contentObjectAttribute->attribute( 'content' );
-                $content['persistent']['closed'] = 'on';
+                $content['persistent']['closed'] = true;
                 $contentObjectAttribute->setContent( $content );
                 break;
             case "open":
@@ -205,7 +205,7 @@ class xrowQuestionnaireType extends eZDataType
         if ( self::isQuiz( $data['questions'] ) )
         {
             
-            $data['settings']['quiz'] = 'on';
+            $data['settings']['quiz'] = true;
         }
         elseif ( isset( $data['settings']['quiz'] ) )
         {
@@ -225,7 +225,7 @@ class xrowQuestionnaireType extends eZDataType
         }
         if ( is_array( $data['settings']['user_attributes'] ) and count( $data['settings']['user_attributes'] ) )
         {
-            $data['settings']['user_loggedin'] = 1;
+            $data['settings']['user_loggedin'] = true;
         }
         $contentObjectAttribute->setContent( $data );
         
