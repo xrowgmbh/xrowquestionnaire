@@ -171,7 +171,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
             }
         }
         // Captcha required
-        if ( ! $http->hasSessionVariable( 'captcha_' . $data['attribute_id'], false ) and eZUser::currentUser()->isAnonymous() and isset( $content["settings"]["captcha"] ) and $content["settings"]["captcha"] == "on" )
+        if ( ! $http->hasSessionVariable( 'captcha_' . $data['attribute_id'], false ) and eZUser::currentUser()->isAnonymous() and isset( $content["settings"]["captcha"] ) and $content["settings"]["captcha"] )
         {
             $result['captcha'] = true;
             $tpl->setVariable( 'errors', $errors );
@@ -198,7 +198,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
             return $result;
         }
         // Login required
-        if ( ( eZUser::currentUser()->isAnonymous() and isset( $content["settings"]["lottery"] ) ) || ( eZUser::currentUser()->isAnonymous() and isset( $content["settings"]["user_loggedin"] ) and $content["settings"]["user_loggedin"] == "on" )  || ( eZUser::currentUser()->isAnonymous() and isset( $content["settings"]["play_once"] ) and $content["settings"]["play_once"] == "on" ) )
+        if ( ( eZUser::currentUser()->isAnonymous() and isset( $content["settings"]["lottery"] ) ) || ( eZUser::currentUser()->isAnonymous() and isset( $content["settings"]["user_loggedin"] ) and $content["settings"]["user_loggedin"] ) )
         {
             $tpl->setVariable( 'question', $content['questions'][0] );
             $result['template'] = $tpl->fetch( 'design:questionnaire/error_login.tpl' );
@@ -294,7 +294,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
         {
             $i = 0;
             $ids = xrowQuestionnaireResult::fetchCompletedQuestionIDList( $attribute );
-            if ( isset( $content['questions']['settings']['play_once'] ) && $content['questions']['settings']['play_once'] != 'on' )
+            if ( isset( $content['questions']['settings']['play_once'] ) && !$content['questions']['settings']['play_once'] )
             {
                 for ( $i = 0; count( $content['questions'] ) > $i; $i ++ )
                 {

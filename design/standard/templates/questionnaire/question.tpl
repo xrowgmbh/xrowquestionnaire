@@ -45,7 +45,7 @@
         </ul>
         {undef $answers}
         <div class="buttonblock">
-			{if and($first|not, or(is_set($attribute.content.settings.quiz)|not(), $attribute.content.settings.quiz|ne('on')))}
+            {if and($first|not, $attribute.content.settings.quiz|not())}
                 <input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'prev' );" id="question_submit{$question.id}" class="question_submit" type="button" name="submit_vote{$question.id}" value="{'Zurück'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'vorherige Frage'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
             {/if}
             <input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'submit' );" id="question_submit{$question.id}" class="question_submit" type="button" name="submit_vote{$question.id}" value="{'Absenden'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'Senden Sie Ihre Antwort ab!'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
