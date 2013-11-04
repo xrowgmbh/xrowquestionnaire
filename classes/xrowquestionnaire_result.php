@@ -201,22 +201,58 @@ class xrowQuestionnaireResult extends eZPersistentObject
         }
         return $users;
     }
-
     static function downloadParticipants( eZContentObjectAttribute $attribute )
     {
         $list = self::fetchParticipants( $attribute );
-        
+    
         $tmpfname = tempnam( eZSys::cacheDirectory(), "csv_" );
-        $head = array("contentibject_id", "name", "email", "score", "url" );
+        $head = array("contentobject_id", "name", "email", "score", "url", "firstname", "lastname", "address" );
         $fp = fopen( $tmpfname, 'w' );
         fprintf( $fp, chr( 0xEF ) . chr( 0xBB ) . chr( 0xBF ) );
-        
+    
         fputcsv( $fp, $head, ";" );
-        
+    
         foreach ( $list as $rows )
         {
             $user = eZUser::fetch( $rows["user_id"] );
-            $row = array( $user->attribute( "contentobject_id" ), $user->attribute('contentobject')->attribute('name'),$user->attribute('email'), $rows['total'], "http://" . eZSys::hostname() . "/content/view/full/" . $user->attribute('contentobject')->attribute('main_node_id') );
+            $user_dm=$user->attribute('contentobject')->dataMap();
+            #var_dump($user_dm);
+            #die("sdjfh");
+            $firstname="N/A";
+            $lastname="N/A";
+            $address="";
+            if( array_key_exists( 'last_name', $user_dm ) )
+            {
+                $lastname=$user_dm["last_name"]->attribute('data_text');
+            }
+    
+            if( array_key_exists( 'first_name', $user_dm ) )
+            {
+                $firstname=$user_dm["first_name"]->attribute('data_text');
+            }
+    
+            // street
+            // housenumber
+            // postcode
+            // city
+            if( array_key_exists( 'street', $user_dm ) )
+            {
+                $address=$user_dm["street"]->attribute('data_text');
+            }
+            if( array_key_exists( 'housenumber', $user_dm ) )
+            {
+                $address.= " " . $user_dm["housenumber"]->attribute('data_text');
+            }
+            if( array_key_exists( 'postcode', $user_dm ) )
+            {
+                $address.= ", " . $user_dm["postcode"]->attribute('data_text');
+            }
+            if( array_key_exists( 'city', $user_dm ) )
+            {
+                $address.= " " . $user_dm["city"]->attribute('data_text');
+            }
+            
+            $row = array( $user->attribute( "contentobject_id" ), $user->attribute('contentobject')->attribute('name'),$user->attribute('email'), $rows['total'], "http://" . eZSys::hostname() . "/content/view/full/" . $user->attribute('contentobject')->attribute('main_node_id'), $firstname, $lastname, $address );
             fputcsv( $fp, $row, ";" );
         }
         

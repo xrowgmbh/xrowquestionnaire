@@ -32,9 +32,9 @@
                         {attribute_view_gui attribute=fetch( 'content', 'node', hash( 'node_id', $answer.object_relation ) ).data_map.image image_class=$questionitemalias}
                     {/if}
                     {if is_set(ezini($question.answer_type, 'SelectMultiple', 'xrowquestionnaire.ini'))}
-                        <input id="{$rndid}" type="checkbox" name="answer_id[]" value="{$answer.id}" {if $prev_answers|contains($answer.id)}checked="checked"{/if}/>
+                        <input id="{$rndid}" type="checkbox" name="answer_id[]" value="{$answer.id}" {if and($prev_answer|ne(''), $prev_answers|contains($answer.id))}checked="checked"{/if}/>
                     {else}
-                        <input id="{$rndid}" type="radio" name="answer_id[]" value="{$answer.id}" {if $prev_answers|contains($answer.id)}checked="checked"{/if}/>
+                        <input id="{$rndid}" type="radio" name="answer_id[]" value="{$answer.id}" {if and($prev_answer|ne(''), $prev_answers|contains($answer.id))}checked="checked"{/if}/>
                     {/if}
                     <label for="{$rndid}">
                         {$answer.text|wash()}
@@ -45,7 +45,7 @@
         </ul>
         {undef $answers}
         <div class="buttonblock">
-            {if and($first|not, $attribute.content.settings.quiz|ne('on'))}
+			{if and($first|not, or(is_set($attribute.content.settings.quiz)|not(), $attribute.content.settings.quiz|ne('on')))}
                 <input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'prev' );" id="question_submit{$question.id}" class="question_submit" type="button" name="submit_vote{$question.id}" value="{'Zurück'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'vorherige Frage'|i18n( 'xrowquestionnaire/datatype/edit' )}" />
             {/if}
             <input onclick="jQuery('#form_{$attribute.id}').questionnaire( 'submit' );" id="question_submit{$question.id}" class="question_submit" type="button" name="submit_vote{$question.id}" value="{'Absenden'|i18n( 'xrowquestionnaire/datatype/edit' )}" title="{'Senden Sie Ihre Antwort ab!'|i18n( 'xrowquestionnaire/datatype/edit' )}" />

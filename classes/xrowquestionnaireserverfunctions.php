@@ -204,6 +204,13 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
             $result['template'] = $tpl->fetch( 'design:questionnaire/error_login.tpl' );
             return $result;
         }
+        // Login required
+        if (isset( $content["settings"]["user_attributes"] ) and eZUser::currentUser()->isAnonymous() )
+        {
+            $tpl->setVariable( 'question', $content['questions'][0] );
+            $result['template'] = $tpl->fetch( 'design:questionnaire/error_login.tpl' );
+            return $result;
+        }
         //UserAttributes Required
         if ( isset( $content["settings"]["user_attributes"] ) and !eZUser::currentUser()->isAnonymous() )
         {
