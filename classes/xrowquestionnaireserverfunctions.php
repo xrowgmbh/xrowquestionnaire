@@ -234,7 +234,7 @@ class xrowQuestionnaireServerFunctions extends ezjscServerFunctions
                 return $result;
             }
         }
-        if ( ! eZUser::currentUser()->isAnonymous() and isset( $content["settings"]["play_once"] ) and $content["settings"]["play_once"] == "on" and xrowQuestionnaireResult::isDuplicate( $attribute ) )
+        if ( ! eZUser::currentUser()->isAnonymous() and isset( $content["settings"]["play_once"] ) and $content["settings"]["play_once"] and xrowQuestionnaireResult::isDuplicate( $attribute ) )
         {
             $tpl->setVariable( 'question', $content['questions'][0] );
             $result['template'] = $tpl->fetch( 'design:questionnaire/error_duplicate.tpl' );
