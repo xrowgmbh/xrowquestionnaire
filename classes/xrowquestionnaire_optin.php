@@ -19,6 +19,12 @@ class xrowQuestionnaireOptin extends eZPersistentObject
                     'default' => eZUser::currentUserID() , 
                     'required' => true 
                 ) , 
+             'siteaccess' => array(
+                    'name' => 'siteaccess' ,
+                    'datatype' => 'string' ,
+                    'default' => 'ezwebin_site' ,
+                    'required' => true
+            ),
                 'optin' => array( 
                     'name' => 'optin' , 
                     'datatype' => 'integer' , 
@@ -39,7 +45,7 @@ class xrowQuestionnaireOptin extends eZPersistentObject
                 ) 
             ) , 
             'keys' => array( 
-                'user_id' 
+                'user_id' , 'siteaccess'
             ) , 
             'function_attributes' => array( 
                 'user' => 'user' 
@@ -61,9 +67,10 @@ class xrowQuestionnaireOptin extends eZPersistentObject
         {
             return false;
         }
-        
+        $siteaccess = eZSiteAccess::current();
         $row = array( 
-            'user_id' => (int) $user->attribute( 'contentobject_id' ) , 
+            'user_id' => (int) $user->attribute( 'contentobject_id' ) ,
+            'siteaccess' => $siteaccess["name"],
             'optout' => null 
         );
         $object = new self( $row );
@@ -77,10 +84,12 @@ class xrowQuestionnaireOptin extends eZPersistentObject
         {
             return false;
         }
-        
+        $siteaccess = eZSiteAccess::current();
         $row = array( 
-            'user_id' => (int) $user->attribute( 'contentobject_id' ) 
+            'user_id' => (int) $user->attribute( 'contentobject_id' ),
+            'siteaccess' => $siteaccess["name"]
         );
+        
         $list = eZPersistentObject::fetchObjectList( self::definition(), null, $row, null, null, true );
         foreach ( $list as $item )
         {
@@ -114,10 +123,12 @@ class xrowQuestionnaireOptin extends eZPersistentObject
 
     public static function fetchUserList()
     {
+        $siteaccess = eZSiteAccess::current();
+        $siteaccess = $siteaccess["name"];
         $db = eZDB::instance();
         $newlist = array();
-        $list = $db->arrayQuery( "SELECT user_id, optin, optout, random
-        FROM   ezx_xrowquestionnaire_optin o, ezuser u WHERE o.optout is null and u.contentobject_id = o.user_id" );
+        $list = $db->arrayQuery( "SELECT user_id, siteaccess, optin, optout, random
+        FROM   ezx_xrowquestionnaire_optin o, ezuser u WHERE o.optout is null and u.contentobject_id = o.user_id and siteaccess = '" . $siteaccess . "'" );
         foreach ( $list as $row )
         {
             $newlist[] = new xrowQuestionnaireOptin( $row );

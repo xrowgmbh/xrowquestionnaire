@@ -1,15 +1,17 @@
 <?php
+$siteaccess = eZSiteAccess::current();
+$siteaccess = $siteaccess["name"];
 if ( ! $isQuiet )
 {
-    $cli->output( "Sending questionaire notifications" );
+    $cli->output( "Sending questionaire notifications for SiteAccess " . $siteaccess );
 }
 
-$lastrun = eZSiteData::fetchByName( xrowQuestionnaireOptin::SITEDATA_LASTRUNTIME );
+$lastrun = eZSiteData::fetchByName( $siteaccess. "_" . xrowQuestionnaireOptin::SITEDATA_LASTRUNTIME );
 
 if ( ! $lastrun )
 {
     $lastrun = new eZSiteData( array( 
-        'name' => xrowQuestionnaireOptin::SITEDATA_LASTRUNTIME , 
+        'name' => $siteaccess. "_" . xrowQuestionnaireOptin::SITEDATA_LASTRUNTIME , 
         'value' => time() 
     ) );
     $lastrun->store();
