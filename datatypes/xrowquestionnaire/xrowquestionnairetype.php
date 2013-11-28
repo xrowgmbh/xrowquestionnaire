@@ -100,6 +100,7 @@ class xrowQuestionnaireType extends eZDataType
         if( isset( $content['settings']['date_start'] ) )
         {
             $contentObjectAttribute->setAttribute( 'data_int', $content['settings']['date_start'] );
+            $contentObjectAttribute->setAttribute( 'sort_key_int', $content['settings']['date_start'] );
         }
         
         return true;
